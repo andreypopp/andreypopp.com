@@ -24,7 +24,13 @@ function createApp(opts) {
   app.use(pages({
     '/':            './pages/index.jsx',
     '/posts/:id':   './pages/post.jsx'
-  }, {debug: opts.debug}));
+  }, {
+    debug: opts.debug,
+    pageOptions: {
+      title: opts.title,
+      author: opts.author
+    }
+  }));
 
   app.get('/api/posts', promise(function(req) {
     return posts
@@ -42,17 +48,14 @@ function createApp(opts) {
   app.get('/rss.xml', promise(function(req) {
     return posts.all().then(function(posts) {
       var feed = new Feed({
-        title: '@andreypopp',
-        link: 'http://andreypopp.com',
-        author: {
-          name: 'Andrey Popp',
-          email: '8mayday@gmail.com'
-        }
+        title: opts.title,
+        link: opts.origin,
+        author: opts.author
       });
       posts.slice(0, 10).forEach(function(post) {
         feed.item({
           title: post.metadata.title,
-          link: 'http://andreypopp.com/posts/' + post.id,
+          link: opts.origin + '/posts/' + post.id,
           date: new Date(post.metadata.created_at),
           content: post.contents
         });
@@ -64,4 +67,14 @@ function createApp(opts) {
   return app;
 }
 
-createApp({debug: true}).listen(3000);
+createApp({
+  title: '@andreypopp',
+  author: {
+    name: 'Andrey Popp',
+    twitter: 'andreypopp',
+    github: 'andreypopp',
+    email: '8mayday@gmail.com'
+  },
+  origin: 'http://andreypopp.com',
+  debug: true
+}).listen(3000);

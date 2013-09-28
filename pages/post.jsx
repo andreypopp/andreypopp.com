@@ -31,7 +31,7 @@ var Sidebar = React.createClass({
 
 var Post = React.createClass({
   render: function() {
-    var title = 'andreypopp.com — ' + this.props.metadata.title;
+    var title = this.props.metadata.title + ' — ' + this.props.options.title;
     return this.transferPropsTo(
       <Page>
         <head>

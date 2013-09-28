@@ -22,15 +22,20 @@ var Post = React.createClass({
 
 var Sidebar = React.createClass({
   render: function() {
+    var a = this.props.options.author;
+    var statements = [
+      (a.twitter && 
+          "follow me on <a href='http://twitter.com/"+a.twutter+"'>twitter</a>"),
+      (a.github && 
+          "see my projects on <a href='https://github.com/"+a.github+"'>github</a>"),
+      "watch for updates with the <a href='/rss.xml'>atom</a> feed",
+      (a.email &&
+          "write me an <a href='mailto:"+a.email+"'>email</a> message")
+    ].filter(Boolean).join(', ');
     return (
       <aside>
-        <h1><a href="/">@andreypopp</a></h1>
-        <p class="small">
-          follow me on <a href="http://twitter.com/andreypopp">twitter</a>,
-          see my projects on <a href="https://github.com/andreypopp">github</a>,
-          watch for updates with the <a href="/rss.xml">atom</a> feed
-          or write me an <a href="mailto:8mayday@gmail.com">email</a> message
-        </p>
+        <h1><a href="/">{this.props.options.title}</a></h1>
+        <p class="small" dangerouslySetInnerHTML={{__html: statements}} />
       </aside>
     );
   }
@@ -50,14 +55,14 @@ var Index = React.createClass({
     return this.transferPropsTo(
       <Page>
         <head>
-          <title>andreypopp.com</title>
+          <title>{this.props.options.title}</title>
         </head>
         <body>
           <div class="layout-default">
             <article>
               <ul class="postlist">{posts}</ul>
             </article>
-            <Sidebar />
+            <Sidebar options={this.props.options} />
             <Footer />
           </div>
         </body>

@@ -32,10 +32,13 @@ var Sidebar = React.createClass({
 var Post = React.createClass({
   render: function() {
     var title = this.props.metadata.title + ' — ' + this.props.options.title;
+    var dataHref = '/api/posts/' + this.props.id;
     return this.transferPropsTo(
       <Page>
         <head>
+          <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
           <title>{title}</title>
+          <link rel="data" href={dataHref} />
         </head>
         <body>
           <div class="layout-post">

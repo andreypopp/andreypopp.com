@@ -55,7 +55,9 @@ var Index = React.createClass({
     return this.transferPropsTo(
       <Page>
         <head>
+          <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
           <title>{this.props.options.title}</title>
+          <link rel="data" href="/api/posts" />
         </head>
         <body>
           <div class="layout-default">

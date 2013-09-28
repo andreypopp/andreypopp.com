@@ -58,6 +58,6 @@ var Post = React.createClass({
 module.exports = {
   Component: Post,
   getData: function(props, callback) {
-    request('http://localhost:3000/api/posts/' + props.params.id, callback);
+    request('/api/posts/' + props.params.id, callback);
   }
 };

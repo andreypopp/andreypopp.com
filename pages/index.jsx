@@ -69,6 +69,6 @@ var Index = React.createClass({
 module.exports = {
   Component: Index,
   getData: function(props, callback) {
-    request('http://localhost:3000/api/posts', callback);
+    request('/api/posts', callback);
   }
 };

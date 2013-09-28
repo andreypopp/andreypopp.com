@@ -1,0 +1,25 @@
+{
+  "name": "preview.andreypopp.com",
+  "version": "0.0.0",
+  "description": "Andrey Popp's blog",
+  "main": "index.js",
+  "dependencies": {
+    "express": "*",
+    "optimist": "~0.6.0",
+    "robotskirt": "~2.7.1",
+    "react-app": "git+https://github.com/andreypopp/react-app#dgraph",
+    "react-tools": "http://data.andreypopp.com/react-tools-0.5.0-alpha.tgz",
+    "kew": "~0.1.7",
+    "lodash": "~2.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "andreypopp/andreypopp.com"
+  },
+  "author": "Andrey Popp <8mayday@gmail.com>",
+  "license": "MIT"
+}

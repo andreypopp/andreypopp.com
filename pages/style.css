@@ -1,0 +1,524 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300,300italic,700,700italic&subset=latin,cyrillic);
+/* line 17, /Users/andreypopp/.rbenv/versions/1.9.3-p327/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+/* line 22, /Users/andreypopp/.rbenv/versions/1.9.3-p327/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html {
+  line-height: 1;
+}
+
+/* line 24, /Users/andreypopp/.rbenv/versions/1.9.3-p327/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 26, /Users/andreypopp/.rbenv/versions/1.9.3-p327/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 28, /Users/andreypopp/.rbenv/versions/1.9.3-p327/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+/* line 30, /Users/andreypopp/.rbenv/versions/1.9.3-p327/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q, blockquote {
+  quotes: none;
+}
+/* line 103, /Users/andreypopp/.rbenv/versions/1.9.3-p327/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+/* line 32, /Users/andreypopp/.rbenv/versions/1.9.3-p327/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+a img {
+  border: none;
+}
+
+/* line 116, /Users/andreypopp/.rbenv/versions/1.9.3-p327/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block;
+}
+
+/* line 29, content/styles/style.sass */
+.typo, .layout-post > article li, .layout-post > article p {
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  -o-hyphens: auto;
+  hyphens: auto;
+  line-height: 1.35em;
+}
+
+/* line 33, content/styles/style.sass */
+.button {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  background: #e7e7e7;
+  color: #757575;
+  cursor: pointer;
+}
+
+/* line 39, content/styles/style.sass */
+body {
+  counter-reset: line;
+  background: #f4f4f4;
+  color: #424242;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 300;
+  font-size: 13pt;
+}
+@media only screen and (max-device-width: 900px) {
+  /* line 39, content/styles/style.sass */
+  body {
+    font-size: 36pt;
+  }
+}
+
+/* line 90, content/styles/style.sass */
+.layout, .layout-default, .layout-post {
+  margin-top: 2em;
+  margin-bottom: 4em;
+}
+/* line 94, content/styles/style.sass */
+.layout > article, .layout-default > article, .layout-post > article {
+  padding: 0 25px;
+}
+/* line 97, content/styles/style.sass */
+.layout > footer, .layout-default > footer, .layout-post > footer {
+  color: #bcbcbc;
+  font-size: 10pt;
+  text-align: center;
+  margin: 4em auto;
+  padding: 0 1em;
+}
+@media only screen and (max-device-width: 900px) {
+  /* line 97, content/styles/style.sass */
+  .layout > footer, .layout-default > footer, .layout-post > footer {
+    font-size: 20pt;
+  }
+}
+
+/* line 107, content/styles/style.sass */
+.layout-default > aside {
+  font-size: 10pt;
+  padding: 0 25px;
+}
+@media only screen and (max-device-width: 900px) {
+  /* line 107, content/styles/style.sass */
+  .layout-default > aside {
+    font-size: 20pt;
+  }
+}
+/* line 111, content/styles/style.sass */
+.layout-default > aside h1 {
+  text-transform: none;
+  font-size: 14pt;
+}
+@media only screen and (max-device-width: 900px) {
+  /* line 111, content/styles/style.sass */
+  .layout-default > aside h1 {
+    font-size: 30pt;
+  }
+}
+/* line 115, content/styles/style.sass */
+.layout-default > aside p {
+  font-size: 10pt;
+}
+@media only screen and (max-device-width: 900px) {
+  /* line 115, content/styles/style.sass */
+  .layout-default > aside p {
+    font-size: 20pt;
+  }
+}
+@media only screen and (min-device-width: 800px) and (min-width: 900px) {
+  /* line 104, content/styles/style.sass */
+  .layout-default {
+    width: 900px;
+    margin: 2em auto;
+    -webkit-transform-origin: 0px 0px 0px;
+    -moz-transform-origin: 0px 0px 0px;
+    -ms-transform-origin: 0px 0px 0px;
+    -o-transform-origin: 0px 0px 0px;
+    transform-origin: 0px 0px 0px;
+    -webkit-transform: rotate(6deg);
+    -moz-transform: rotate(6deg);
+    -ms-transform: rotate(6deg);
+    -o-transform: rotate(6deg);
+    transform: rotate(6deg);
+  }
+  /* line 78, content/styles/style.sass */
+  .layout-default > article {
+    width: 600px;
+    margin-left: 250px;
+  }
+  /* line 82, content/styles/style.sass */
+  .layout-default > aside {
+    top: 2em;
+    position: fixed;
+    width: 200px;
+  }
+  /* line 87, content/styles/style.sass */
+  .layout-default > aside h1 {
+    font-size: 14pt;
+  }
+  /* line 71, content/styles/style.sass */
+  .layout-default > aside {
+    top: 1em;
+  }
+}
+@media only screen and (min-device-width: 800px) and (min-width: 900px) and (max-device-width: 900px) {
+  /* line 87, content/styles/style.sass */
+  .layout-default > aside h1 {
+    font-size: 30pt;
+  }
+}
+
+/* line 127, content/styles/style.sass */
+.layout-post > aside {
+  font-size: 10pt;
+  padding: 0 25px;
+  margin-bottom: 2em;
+}
+@media only screen and (max-device-width: 900px) {
+  /* line 127, content/styles/style.sass */
+  .layout-post > aside {
+    font-size: 20pt;
+  }
+}
+/* line 132, content/styles/style.sass */
+.layout-post > aside h1 {
+  text-transform: none;
+  font-size: 14pt;
+}
+@media only screen and (max-device-width: 900px) {
+  /* line 132, content/styles/style.sass */
+  .layout-post > aside h1 {
+    font-size: 30pt;
+  }
+}
+/* line 136, content/styles/style.sass */
+.layout-post > aside p {
+  font-size: 10pt;
+  color: #bcbcbc;
+}
+@media only screen and (max-device-width: 900px) {
+  /* line 136, content/styles/style.sass */
+  .layout-post > aside p {
+    font-size: 20pt;
+  }
+}
+/* line 140, content/styles/style.sass */
+.layout-post > aside p.go-back {
+  margin-bottom: 1em;
+}
+@media only screen and (min-device-width: 800px) and (min-width: 900px) {
+  /* line 124, content/styles/style.sass */
+  .layout-post {
+    width: 900px;
+    margin: 2em auto;
+  }
+  /* line 78, content/styles/style.sass */
+  .layout-post > article {
+    width: 600px;
+    margin-left: 250px;
+  }
+  /* line 82, content/styles/style.sass */
+  .layout-post > aside {
+    top: 2em;
+    position: fixed;
+    width: 200px;
+  }
+  /* line 87, content/styles/style.sass */
+  .layout-post > aside h1 {
+    font-size: 14pt;
+  }
+}
+@media only screen and (min-device-width: 800px) and (min-width: 900px) and (max-device-width: 900px) {
+  /* line 87, content/styles/style.sass */
+  .layout-post > aside h1 {
+    font-size: 30pt;
+  }
+}
+
+/* line 152, content/styles/style.sass */
+.postlist li.year {
+  display: none;
+  margin: 1.4em 0;
+  color: #bcbcbc;
+  text-transform: uppercase;
+  font-size: 60%;
+}
+@media only screen and (min-device-width: 800px) and (min-width: 900px) {
+  /* line 152, content/styles/style.sass */
+  .postlist li.year {
+    display: block;
+    position: relative;
+    left: -35px;
+  }
+}
+/* line 165, content/styles/style.sass */
+.postlist li {
+  margin-bottom: 0.3em;
+}
+/* line 168, content/styles/style.sass */
+.postlist li > h5, .postlist li > time {
+  display: inline;
+  float: left;
+}
+/* line 170, content/styles/style.sass */
+.postlist li > time {
+  color: #bcbcbc;
+  font-size: 8pt;
+}
+@media only screen and (max-device-width: 900px) {
+  /* line 170, content/styles/style.sass */
+  .postlist li > time {
+    display: none;
+  }
+}
+@media only screen and (max-device-width: 900px) {
+  /* line 170, content/styles/style.sass */
+  .postlist li > time {
+    font-size: 16pt;
+  }
+}
+/* line 175, content/styles/style.sass */
+.postlist li > h5 {
+  margin-right: 0.2em;
+}
+/* line 177, content/styles/style.sass */
+.postlist li > div {
+  clear: both;
+  float: none;
+  display: block;
+}
+
+/* line 181, content/styles/style.sass */
+em {
+  font-style: italic;
+}
+
+/* line 184, content/styles/style.sass */
+header, p, ul, ol, aside, figure, article, .pane, .pane2, .pane3 {
+  margin: 1em 0;
+}
+
+/* line 187, content/styles/style.sass */
+figure figcaption {
+  font-size: 10pt;
+  text-align: center;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/* line 193, content/styles/style.sass */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: bold;
+  color: #3299bb;
+  text-transform: uppercase;
+}
+
+/* line 198, content/styles/style.sass */
+h1 {
+  font-size: 24pt;
+}
+@media only screen and (max-device-width: 900px) {
+  /* line 198, content/styles/style.sass */
+  h1 {
+    font-size: 48pt;
+  }
+}
+
+/* line 204, content/styles/style.sass */
+a {
+  text-decoration: none;
+  padding: 0 0.1em;
+  color: #3299bb;
+}
+/* line 210, content/styles/style.sass */
+a:hover {
+  color: #f4f4f4;
+  background: #3299bb;
+}
+
+/* line 215, content/styles/style.sass */
+p {
+  line-height: 1.35em;
+}
+
+/* line 218, content/styles/style.sass */
+pre,
+code {
+  color: #424242;
+  font-family: Menlo, Monaco, "Bitstream Mono", monospace;
+  font-size: 10pt;
+  line-height: 1.25em;
+}
+@media only screen and (max-device-width: 900px) {
+  /* line 218, content/styles/style.sass */
+  pre,
+  code {
+    font-size: 36pt;
+  }
+}
+
+/* line 227, content/styles/style.sass */
+p code {
+  margin: 0 0.3em;
+}
+
+/* line 230, content/styles/style.sass */
+pre {
+  margin-left: 1em;
+}
+
+/* line 233, content/styles/style.sass */
+.line {
+  line-height: 0;
+}
+/* line 236, content/styles/style.sass */
+.line:after {
+  counter-increment: line;
+  font-size: 8pt;
+  vertical-align: super;
+  font-family: "Open Sans", sans-serif;
+  font-weight: bold;
+  color: #3299bb;
+  content: " " counter(line);
+}
+
+/* line 245, content/styles/style.sass */
+.lineref {
+  margin-right: 0.3em;
+  line-height: 0;
+  counter-increment: lineref;
+  font-size: 10pt;
+  vertical-align: super;
+  font-family: "Open Sans", sans-serif;
+  font-weight: bold;
+  color: #3299bb;
+}
+
+/* line 255, content/styles/style.sass */
+ul li {
+  margin-left: 1.5em;
+  list-style-type: square;
+}
+
+/* line 259, content/styles/style.sass */
+ol li {
+  margin-left: 1.5em;
+  list-style-type: decimal;
+}
+
+/* line 263, content/styles/style.sass */
+ul.nostyle li, ul.postlist li,
+ol.nostyle li,
+ol.postlist li {
+  margin-left: 0;
+  list-style-type: none;
+}
+
+/* line 268, content/styles/style.sass */
+blockquote {
+  margin-left: 1em;
+  font-size: 85%;
+  color: #666666;
+  position: relative;
+  padding: 0 1em;
+}
+/* line 274, content/styles/style.sass */
+blockquote p {
+  line-height: 1.4em;
+}
+
+/* line 277, content/styles/style.sass */
+blockquote:before {
+  display: block;
+  position: absolute;
+  content: "\201C";
+  font-size: 80px;
+  left: -20px;
+  top: -20px;
+  color: #dddddd;
+}
+
+/* line 286, content/styles/style.sass */
+.List {
+  width: 40px;
+}
+/* line 289, content/styles/style.sass */
+.List .Item {
+  cursor: pointer;
+  color: #3299bb;
+  text-align: center;
+  font-weight: bold;
+  font-size: 120%;
+  padding: 7px;
+  background: #dbdbdb;
+  margin-bottom: 3px;
+}
+
+/* line 300, content/styles/style.sass */
+.pane2 {
+  width: 100%;
+  padding: 10px;
+  display: table;
+}
+/* line 305, content/styles/style.sass */
+.pane2 .left, .pane2 .right {
+  display: table-cell;
+  width: 50%;
+}
+
+/* line 309, content/styles/style.sass */
+.pane3 {
+  width: 100%;
+  padding: 10px;
+  display: table;
+}
+/* line 314, content/styles/style.sass */
+.pane3 .left, .pane3 .right, .pane3 .middle {
+  display: table-cell;
+  width: 33.33%;
+}
+
+/* line 318, content/styles/style.sass */
+#sorted, #reversed, #capped, #filtered, #diff {
+  text-align: center;
+}
+/* line 320, content/styles/style.sass */
+#sorted .List, #sorted .label, #reversed .List, #reversed .label, #capped .List, #capped .label, #filtered .List, #filtered .label, #diff .List, #diff .label {
+  display: table-cell;
+}
+/* line 322, content/styles/style.sass */
+#sorted .label, #reversed .label, #capped .label, #filtered .label, #diff .label {
+  width: 100px;
+  font-size: 80%;
+}

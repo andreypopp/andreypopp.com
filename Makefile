@@ -14,6 +14,8 @@ define HELP
    site-dev            Run site development
    site-build          Build site
    site-start          Start site
+   site-export         Export site
+   site-publish        Publish site
 
  Other tasks:
 
@@ -32,5 +34,19 @@ bootstrap:
 cosmos:
 	@yarn cosmos
 
-site-dev site-build site-start site-export:
+site-dev:
+	@yarn --cwd site next dev --hostname 0.0.0.0
+
+site-build site-start:
 	@yarn --cwd site next $(@:site-%=%)
+
+site-export: site-build
+	@yarn --cwd site next $(@:site-%=%)
+	@touch site/out/.nojekyll
+
+site-publish: site-export
+	@yarn --cwd site gh-pages \
+		--repo git@github.com:andreypopp/andreypopp.github.io.git \
+		--dist ./out \
+		--branch master \
+		--dotfiles

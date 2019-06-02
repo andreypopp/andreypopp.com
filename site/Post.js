@@ -41,7 +41,7 @@ export let Post = (props: P) => {
       </Text>
     ) : null;
   return (
-    <Page showBackLink title={title} subtitle={subtitle}>
+    <Page showBackLink title={`@andreypopp: ${title}`} subtitle={subtitle}>
       <Content>{children}</Content>
       {next && <NextWriting writing={next} />}
     </Page>

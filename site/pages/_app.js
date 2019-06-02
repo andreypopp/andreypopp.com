@@ -64,7 +64,6 @@ class MyApp extends App {
   }
 
   componentDidMount() {
-    document.title = '@andreypopp';
     this.setState({ loaded: true });
   }
 }

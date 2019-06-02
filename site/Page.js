@@ -22,6 +22,14 @@ export let Page = ({
   let [size, sizeRef] = UI.useDOMSize();
   let isWideScreen = size != null && size.width > 700;
 
+  React.useEffect(() => {
+    if (title) {
+      document.title = Array.isArray(title) ? title.join() : title;
+    } else {
+      document.title = `@andreypopp`;
+    }
+  }, [title]);
+
   let layoutStyle = UI.useStyle(
     theme => ({
       width: isWideScreen ? 700 : 350,
@@ -183,9 +191,7 @@ export let PageHeader = ({
           <Icon.ArrowLeft size={18} /> back home
         </UI.Link>
       ) : null}
-      <View style={styles.titleRoot}>
-        {titleElement}
-      </View>
+      <View style={styles.titleRoot}>{titleElement}</View>
       {subtitle}
     </View>
   );

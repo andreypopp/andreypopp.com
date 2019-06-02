@@ -33,7 +33,22 @@ module.exports = {
     });
 
     config.module.rules.push({
+      test: /\/wiki\/.+\.md$/,
+      use: [
+        defaultLoaders.babel,
+        {
+          loader: '@mdx-js/loader',
+          options: {}
+        },
+        {
+          loader: './wiki-loader',
+        },
+      ],
+    });
+
+    config.module.rules.push({
       test: /\.md$/,
+      exclude: [/\/wiki\/.+\.md$/],
       use: [
         defaultLoaders.babel,
         {

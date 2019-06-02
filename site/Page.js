@@ -6,18 +6,20 @@ import * as Icon from 'react-feather';
 import * as UI from 'ui';
 import * as Style from 'ui/Style';
 
-let useLayoutStyle = () => {};
+let scrollPositionByPath = new Map();
 
 export let Page = ({
   children,
   title,
   subtitle,
+  shouldRestoreScrollPosition,
   showBackLink,
 }: {|
   children: React.Node,
   title?: string | string[],
   subtitle?: React.Node,
   showBackLink?: boolean,
+  shouldRestoreScrollPosition?: boolean,
 |}) => {
   let [size, sizeRef] = UI.useDOMSize();
   let isWideScreen = size != null && size.width > 700;
@@ -69,9 +71,34 @@ export let Page = ({
     return <PageFooter layoutStyle={layoutStyle} />;
   }, [layoutStyle]);
 
+  let scrollerRef = React.useRef(null);
+
+  React.useEffect(() => {
+    if (scrollPositionByPath.has(window.location.pathname)) {
+      let offsetY = scrollPositionByPath.get(window.location.pathname);
+      if (shouldRestoreScrollPosition) {
+        if (scrollerRef.current != null) {
+          scrollerRef.current.scrollTo({ y: offsetY, x: 0, animated: false });
+        }
+      } else {
+        scrollPositionByPath.set(window.location.pathname, 0);
+      }
+    }
+  }, []);
+
+  let onScroll = React.useCallback(e => {
+    let offsetY = e.nativeEvent.contentOffset.y;
+    scrollPositionByPath.set(window.location.pathname, offsetY);
+  });
+
   return (
     <View ref={sizeRef} style={styles.root}>
-      <ScrollView contentContainerStyle={styles.wrapper}>
+      <ScrollView
+        ref={scrollerRef}
+        scrollEventThrottle={100}
+        onScroll={onScroll}
+        contentContainerStyle={styles.wrapper}
+      >
         <View style={[layoutStyle, styles.header]}>{headerElement}</View>
         <View style={[layoutStyle, styles.children]}>{children}</View>
       </ScrollView>

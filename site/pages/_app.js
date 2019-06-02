@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { View, Text } from 'react-native';
+import Router from 'next/router';
 import App, { Container } from 'next/app';
 import * as UI from 'ui';
 import * as Style from 'ui/Style';
@@ -40,7 +41,10 @@ class MyApp extends App {
     return { pageProps };
   }
 
-  state: { loaded: boolean } = { loaded: false };
+  shouldRestoreScrollPosition: boolean = false;
+  state: { loaded: boolean } = {
+    loaded: false,
+  };
 
   render() {
     const { Component, pageProps } = this.props;
@@ -57,14 +61,27 @@ class MyApp extends App {
     return (
       <UI.WithTheme>
         <Container>
-          <Component {...pageProps} />
+          <Component
+            {...pageProps}
+            shouldRestoreScrollPosition={this.shouldRestoreScrollPosition}
+          />
         </Container>
       </UI.WithTheme>
     );
   }
 
+  componentDidUpdate() {
+    if (this.shouldRestoreScrollPosition) {
+      this.shouldRestoreScrollPosition = false;
+    }
+  }
+
   componentDidMount() {
     this.setState({ loaded: true });
+    Router.beforePopState(({ url, as, options }) => {
+      this.shouldRestoreScrollPosition = true;
+      return true;
+    });
   }
 }
 

@@ -100,7 +100,7 @@ let WritingsArchive = ({ writings }) => {
   return <View style={styles.root}>{children}</View>;
 };
 
-export default (props: {}) => {
+export default (props: {| shouldRestoreScrollPosition?: boolean |}) => {
   let styles = Style.useStyles(theme => ({
     me: {
       paddingVertical: 50,
@@ -115,7 +115,7 @@ export default (props: {}) => {
       </View>
     ));
   return (
-    <Page>
+    <Page shouldRestoreScrollPosition={props.shouldRestoreScrollPosition}>
       {recently.lentgh > 0 ? (
         <Section title="Recently">
           <View>{recently}</View>

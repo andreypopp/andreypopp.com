@@ -12,10 +12,11 @@ let index = require('./writings-index.compute');
 type P = {
   children: React.Node,
   title?: string | string[],
+  shouldRestoreScrollPosition?: boolean,
 };
 
 export let Post = (props: P) => {
-  let { children, title } = props;
+  let { children, title, shouldRestoreScrollPosition } = props;
   let curr = null;
   let next = null;
   for (let item of index) {
@@ -41,7 +42,12 @@ export let Post = (props: P) => {
       </Text>
     ) : null;
   return (
-    <Page showBackLink title={title} subtitle={subtitle}>
+    <Page
+      showBackLink
+      title={title}
+      subtitle={subtitle}
+      shouldRestoreScrollPosition={shouldRestoreScrollPosition}
+    >
       <Content>{children}</Content>
       {next && <NextWriting writing={next} />}
     </Page>

@@ -128,11 +128,6 @@ export default (props: {| shouldRestoreScrollPosition?: boolean |}) => {
             You can follow me on {twitter} which is mostly about tech. If you
             have something to say to me directly you can reach me via {email}.
           </p>
-          <p>
-            The list of my current interests include: Reason/OCaml, query
-            languages, end-user programming, development tooling, programming
-            language theory, vim/neovim, ...
-          </p>
         </Content>
       </View>
       <WritingsArchive writings={writingsIndex} />

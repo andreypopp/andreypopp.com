@@ -28,65 +28,133 @@ let email = <Link href="mailto:8mayday@gmail.com">8mayday@gmail.com</Link>;
 
 let WritingLink = ({ writing }) => {
   let _handlePress = (e: UIEvent) => handlePress(e, writing.href);
-  let style = Style.useStyle(theme => ({
-    textTransform: 'uppercase',
-    color: theme.linkColor,
-    fontWeight: '800',
-  }));
-  return (
-    <TouchableOpacity>
-      <Text
-        accessibilityRole="link"
-        style={[style]}
-        href={writing.href}
-        onPress={_handlePress}
-      >
-        {writing.title}
-      </Text>
-    </TouchableOpacity>
-  );
-};
-
-let WritingsIndex = ({ writings }) => {
-  let styles = Style.useStyle(theme => ({
-    list: {
+  let styles = Style.useStyles(theme => ({
+    root: {
+      paddingVertical: 8,
+    },
+    date: {
+      color: theme.dimmedColor,
+      fontSize: '8pt',
+      fontWeight: '800',
+    },
+    title: {
       textTransform: 'uppercase',
       color: theme.linkColor,
       fontWeight: '800',
     },
   }));
   return (
-    <View style={styles.list}>
-      {writings.map(item => (
-        <View style={styles.item} key={item.href}>
-          <WritingLink writing={item} />
-        </View>
-      ))}
+    <TouchableOpacity style={styles.root}>
+      <Text
+        accessibilityRole="link"
+        style={styles.title}
+        href={writing.href}
+        onPress={_handlePress}
+      >
+        {writing.title}
+      </Text>
+      <Text style={styles.date}>
+        {writing.date.year}/{writing.date.month}/{writing.date.day}
+      </Text>
+    </TouchableOpacity>
+  );
+};
+
+let WritingsArchive = ({ writings }) => {
+  let children = [];
+  let lastYear = null;
+  let styles = Style.useStyles(theme => ({
+    year: {
+      paddingTop: 30,
+    },
+    yearText: {
+      color: theme.dimmedColor,
+      fontWeight: '900',
+      fontSize: '8pt',
+    },
+  }));
+
+  for (let item of writings) {
+    if (item.date.year !== lastYear) {
+      lastYear = item.date.year;
+      children.push(
+        <View style={styles.year} key={`year-${lastYear}`}>
+          <Text style={styles.yearText}>{lastYear}</Text>
+        </View>,
+      );
+    }
+
+    children.push(
+      <View key={item.href}>
+        <WritingLink writing={item} />
+      </View>,
+    );
+  }
+  return <View>{children}</View>;
+};
+
+let Section = props => {
+  let styles = Style.useStyles(theme => ({
+    root: {
+      padding: 10,
+      backgroundColor: theme.backgroundSecondaryColor,
+      width: '100%',
+      borderTopWidth: 2,
+      borderTopColor: theme.dimmedColor,
+      paddingVertical: 10,
+    },
+    title: {
+      color: theme.dimmedColor,
+      fontWeight: '900',
+      fontSize: '8pt',
+      textTransform: 'uppercase',
+    },
+    children: {
+      paddingTop: 10,
+    },
+  }));
+  return (
+    <View style={styles.root}>
+      <Text style={styles.title}>{props.title}</Text>
+      <View style={styles.children}>{props.children}</View>
     </View>
   );
 };
 
 export default (props: {}) => {
+  let styles = Style.useStyles(theme => ({
+    me: {
+      paddingVertical: 50,
+    },
+  }));
   return (
     <Page>
-      <Content>
-        <p>Recently:</p>
-      </Content>
-      <WritingsIndex writings={writingsIndex.slice(0, 3)} />
-      <Content>
-        <p>I'm Andrey Popp, software engineer based in {geoloc}.</p>
-        <p>
-          You can follow me on {twitter} which is mostly about tech. If you have
-          something to say to me directly you can reach me via {email}.
-        </p>
-        <p>
-          The list of my current interests include: Reason/OCaml, query
-          languages, end-user programming, development tooling, programming
-          language theory, vim/neovim, ...
-        </p>
-        <p>More:</p>
-      </Content>
-      <WritingsIndex writings={writingsIndex} />
+      <Section title="Recently">
+        <View>
+          {writingsIndex.slice(0, 3).map(item => (
+            <View key={item.href}>
+              <WritingLink writing={item} />
+            </View>
+          ))}
+        </View>
+      </Section>
+      <View style={styles.me}>
+        <Content>
+          <p>I'm Andrey Popp, software engineer based in {geoloc}.</p>
+          <p>
+            You can follow me on {twitter} which is mostly about tech. If you
+            have something to say to me directly you can reach me via {email}.
+          </p>
+          <p>
+            The list of my current interests include: Reason/OCaml, query
+            languages, end-user programming, development tooling, programming
+            language theory, vim/neovim, ...
+          </p>
+        </Content>
+      </View>
+      <Section title="Archive">
+        <WritingsArchive writings={writingsIndex} />
+      </Section>
     </Page>
   );
 };

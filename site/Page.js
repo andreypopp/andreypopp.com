@@ -11,10 +11,12 @@ let useLayoutStyle = () => {};
 export let Page = ({
   children,
   title,
+  subtitle,
   showBackLink,
 }: {|
   children: React.Node,
   title?: string | string[],
+  subtitle?: React.Node,
   showBackLink?: boolean,
 |}) => {
   let [size, sizeRef] = UI.useDOMSize();
@@ -34,6 +36,10 @@ export let Page = ({
     },
     children: {
       alignItems: 'flex-start',
+      paddingBottom: 80,
+    },
+    header: {
+      alignItems: 'flex-start',
     },
     wrapper: {
       alignItems: 'center',
@@ -42,7 +48,13 @@ export let Page = ({
   }));
 
   let headerElement = React.useMemo(() => {
-    return <PageHeader showBackLink={showBackLink} title={title} />;
+    return (
+      <PageHeader
+        showBackLink={showBackLink}
+        title={title}
+        subtitle={subtitle}
+      />
+    );
   }, [showBackLink, title]);
 
   let footerElement = React.useMemo(() => {
@@ -52,7 +64,7 @@ export let Page = ({
   return (
     <View ref={sizeRef} style={styles.root}>
       <ScrollView contentContainerStyle={styles.wrapper}>
-        <View style={[layoutStyle, styles.children]}>{headerElement}</View>
+        <View style={[layoutStyle, styles.header]}>{headerElement}</View>
         <View style={[layoutStyle, styles.children]}>{children}</View>
       </ScrollView>
       {footerElement}
@@ -122,9 +134,11 @@ export let Logo = () => {
 
 export let PageHeader = ({
   title,
+  subtitle,
   showBackLink,
 }: {|
   title?: string | string[],
+  subtitle?: React.Node,
   showBackLink?: boolean,
 |}) => {
   let styles = UI.useStyles(theme => ({
@@ -169,7 +183,10 @@ export let PageHeader = ({
           <Icon.ArrowLeft size={18} /> back home
         </UI.Link>
       ) : null}
-      <View style={styles.titleRoot}>{titleElement}</View>
+      <View style={styles.titleRoot}>
+        {titleElement}
+      </View>
+      {subtitle}
     </View>
   );
 };

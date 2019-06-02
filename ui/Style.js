@@ -56,6 +56,7 @@ export let iOSPalette = {
 
 function makeLightTheme(): Theme {
   let backgroundColor = polychrome('#f9f5f3');
+  let backgroundSecondaryColor = polychrome('rgba(139, 75, 96, 0.10)');
   let titleColor = polychrome('#9c4663');
   let textColor = polychrome('#8c4b61');
   let linkColor = polychrome('#9c4663');
@@ -63,7 +64,7 @@ function makeLightTheme(): Theme {
     themeName: 'light',
 
     backgroundColor: backgroundColor.rgb(),
-    backgroundSecondaryColor: backgroundColor.darken(5).rgb(),
+    backgroundSecondaryColor: backgroundSecondaryColor.rgb(),
     backgroundSelectedColor: '#93ddff',
     backgroundHighlightedColor: '#C7C7CC',
 

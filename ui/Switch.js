@@ -43,7 +43,7 @@ export function Switch(props: P) {
     thumbColor = { on: theme.labelColor, off: theme.dimmedColor },
   } = props;
 
-  let iconSize = size - 10;
+  let iconSize = size - 12;
   let disabledOpacity = 0.5;
 
   let styles = Style.useStyles(

@@ -6,15 +6,21 @@ let LimitChunkCountPlugin = require('webpack/lib/optimize/LimitChunkCountPlugin'
 let loaderUtils = require('loader-utils');
 
 module.exports = function(source) {
+  this.cacheable(true);
   return source;
 };
 
 module.exports.pitch = function(request, prevRequest) {
+  this.cacheable(true);
   let callback = this.async();
   produce(this, request, callback);
 };
 
 function produce(loader, request, callback) {
+  let loaderKey = `${__dirname}--here`;
+  if (loader[loaderKey]) {
+    return callback(null, `module.exports = null;`);
+  }
   let childFilename = 'value-output-filename';
   let outputOptions = { filename: childFilename };
   let childCompiler = getRootCompilation(loader).createChildCompiler(
@@ -35,11 +41,9 @@ function produce(loader, request, callback) {
       compilation.cache = compilation.cache[cacheKey];
     }
   });
-  // We set loaderContext[__dirname] = false to indicate we already in
-  // a child compiler so we don't spawn another child compilers from there.
   childCompiler.plugin('this-compilation', compilation => {
     compilation.plugin('normal-module-loader', loaderContext => {
-      loaderContext[__dirname] = false;
+      loaderContext[loaderKey] = true;
     });
   });
   let source;

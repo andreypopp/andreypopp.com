@@ -20,6 +20,7 @@ export type Theme = {|
   borderColor: color,
 
   textColor: color,
+  titleColor: color,
   labelColor: color,
   linkColor: color,
 
@@ -54,9 +55,10 @@ export let iOSPalette = {
 };
 
 function makeLightTheme(): Theme {
-  let backgroundColor = polychrome('#f8f8f8');
-  let textColor = polychrome('#222222');
-  let linkColor = polychrome('#0066d5');
+  let backgroundColor = polychrome('#f9f5f3');
+  let titleColor = polychrome('#9c4663');
+  let textColor = polychrome('#8c4b61');
+  let linkColor = polychrome('#9c4663');
   return {
     themeName: 'light',
 
@@ -66,10 +68,11 @@ function makeLightTheme(): Theme {
     backgroundHighlightedColor: '#C7C7CC',
 
     borderColor: backgroundColor.darken(25).rgb(),
+    titleColor: titleColor.rgb(),
     textColor: textColor.rgb(),
-    labelColor: '#333333',
+    labelColor: textColor.rgb(),
     linkColor: linkColor.rgb(),
-    dimmedColor: '#888888',
+    dimmedColor: textColor.fadeOut(30).rgb(),
 
     success: {
       backgroundColor: '#008641',
@@ -95,6 +98,7 @@ function makeDarkTheme(): Theme {
     borderColor: backgroundColor.lighten(100).rgb(),
 
     textColor: '#CCCCCC',
+    titleColor: '#CCCCCC',
     labelColor: '#DDDDDD',
     linkColor: '#5AC8FA',
     dimmedColor: '#888888',

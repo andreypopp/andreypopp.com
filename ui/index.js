@@ -14,3 +14,4 @@ export { Link, LinkButton } from './Link';
 export { Button } from './Button';
 export { IconButton } from './IconButton';
 export { ThemeSwitch } from './ThemeSwitch';
+export { Content } from './Content';

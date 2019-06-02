@@ -3,7 +3,8 @@
   "private": true,
   "workspaces": [
     "ui",
-    "site"
+    "site",
+    "value-loader"
   ],
   "devDependencies": {
     "flow-bin": "0.96.0",

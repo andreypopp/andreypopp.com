@@ -4,24 +4,27 @@ import * as React from 'react';
 import { View, Text } from 'react-native';
 import App, { Container } from 'next/app';
 import * as UI from 'ui';
+import * as Style from 'ui/Style';
+import { Logo } from '../Page';
 
 function Preloader() {
-  let styles = UI.useStyles(_theme => ({
+  let styles = UI.useStyles(theme => ({
     root: {
-      backgroundColor: UI.darkTheme.backgroundColor,
+      backgroundColor: theme.backgroundColor,
       flexGrow: 1,
       alignItems: 'center',
       justifyContent: 'center',
+      flexDirection: 'row',
     },
     text: {
-      color: UI.darkTheme.textColor,
+      color: theme.textColor,
       fontSize: '18pt',
       fontWeight: '900',
     },
   }));
   return (
     <View style={styles.root}>
-      <Text style={styles.text}>Loading...</Text>
+      <Logo />
     </View>
   );
 }
@@ -41,12 +44,13 @@ class MyApp extends App {
 
   render() {
     const { Component, pageProps } = this.props;
-
     if (!this.state.loaded) {
       return (
-        <Container>
-          <Preloader />
-        </Container>
+        <UI.WithTheme defaultTheme={UI.darkTheme}>
+          <Container>
+            <Preloader />
+          </Container>
+        </UI.WithTheme>
       );
     }
 
@@ -60,7 +64,7 @@ class MyApp extends App {
   }
 
   componentDidMount() {
-    document.title = 'action*';
+    document.title = '@andreypopp';
     this.setState({ loaded: true });
   }
 }

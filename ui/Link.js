@@ -52,18 +52,15 @@ type LinkButtonProps = {|
   labelColor?: Style.color,
 |};
 
-export let LinkButton = ({
-  href,
-  ...props
-}: LinkButtonProps) => {
+export let LinkButton = ({ href, ...props }: LinkButtonProps) => {
   let onPress = React.useCallback(
     (e: UIEvent) => handlePress(e, href, Lang.emptyFunctionThatReturns(false)),
     [href],
   );
-  return <Button {...props} onPress={onPress} />
+  return <Button {...props} onPress={onPress} />;
 };
 
-let handlePress = (
+export let handlePress = (
   e: UIEvent,
   href: string,
   onPress: ?(UIEvent) => boolean,
@@ -79,5 +76,9 @@ let handlePress = (
 };
 
 let isExternalHref = href => {
-  return href.startsWith('http://') || href.startsWith('https://');
+  return (
+    href.startsWith('http://') ||
+    href.startsWith('https://') ||
+    href.startsWith('mailto:')
+  );
 };

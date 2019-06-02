@@ -5,6 +5,7 @@ let internalNodeModulesRegExp = /(?:ui)(?!.*node_modules)/;
 let externalNodeModulesRegExp = /node_modules(?!\/(?:ui)(?!.*node_modules))/;
 
 module.exports = {
+  pageExtensions: ['js', 'md'],
   webpack: (config, { dev, isServer, defaultLoaders }) => {
     if (!defaultLoaders.babel.options.plugins) {
       defaultLoaders.babel.options.plugins = [];
@@ -18,6 +19,28 @@ module.exports = {
       if (typeof external !== 'function') return external;
       return (ctx, req, cb) =>
         internalNodeModulesRegExp.test(req) ? cb() : external(ctx, req, cb);
+    });
+
+    config.module.rules.push({
+      test: /\.compute.js$/,
+      use: [
+        defaultLoaders.babel,
+        {
+          loader: 'value-loader',
+          options: {}
+        },
+      ],
+    });
+
+    config.module.rules.push({
+      test: /\.md$/,
+      use: [
+        defaultLoaders.babel,
+        {
+          loader: '@mdx-js/loader',
+          options: {}
+        },
+      ],
     });
 
     config.module.rules.push({

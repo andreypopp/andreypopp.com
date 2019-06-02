@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "dependencies": {
+    "@mdx-js/loader": "^1.0.20",
     "faker": "^4.1.0",
     "next": "^8.0.3",
     "next-transpile-modules": "^2.2.0",
@@ -18,6 +19,8 @@
     "react-simple-code-editor": "^0.9.9",
     "react-window": "^1.7.1",
     "resize-observer-polyfill": "^1.5.1",
-    "webpack": "*"
+    "webpack": "*",
+    "value-loader": "*",
+    "ui": "*"
   }
 }

@@ -4,6 +4,9 @@ import * as React from 'react';
 import { ScrollView, View, Text } from 'react-native';
 import * as Icon from 'react-feather';
 import * as UI from 'ui';
+import * as Style from 'ui/Style';
+
+let useLayoutStyle = () => {};
 
 export let Page = ({
   children,
@@ -27,46 +30,47 @@ export let Page = ({
   let styles = UI.useStyles(theme => ({
     root: {
       backgroundColor: theme.backgroundColor,
-      alignItems: 'center',
       flexGrow: 1,
     },
-    wrapper: {
+    children: {
       alignItems: 'flex-start',
-      paddingBottom: 100,
+    },
+    wrapper: {
+      alignItems: 'center',
+      flexBasis: 0,
     },
   }));
 
   let headerElement = React.useMemo(() => {
-    return title != null ? (
-      <PageHeader showBackLink={showBackLink}>{title}</PageHeader>
-    ) : null;
+    return <PageHeader showBackLink={showBackLink} title={title} />;
   }, [showBackLink, title]);
 
   let footerElement = React.useMemo(() => {
-    return (
-      <View style={layoutStyle}>
-        <PageFooter />
-      </View>
-    );
+    return <PageFooter layoutStyle={layoutStyle} />;
   }, [layoutStyle]);
 
   return (
-    <ScrollView ref={sizeRef} contentContainerStyle={styles.root}>
-      <View style={[styles.wrapper, layoutStyle]}>
-        {headerElement}
-        {children}
-      </View>
+    <View ref={sizeRef} style={styles.root}>
+      <ScrollView contentContainerStyle={styles.wrapper}>
+        <View style={[layoutStyle, styles.children]}>{headerElement}</View>
+        <View style={[layoutStyle, styles.children]}>{children}</View>
+      </ScrollView>
       {footerElement}
-    </ScrollView>
+    </View>
   );
 };
 
-export let PageFooter = ({ style }: { style?: Object }) => {
+export let PageFooter = ({ layoutStyle }: {| layoutStyle?: Object |}) => {
   let styles = UI.useStyles(theme => ({
     root: {
+      alignItems: 'center',
+      paddingVertical: 20,
+      borderTopWidth: 1,
+      borderTopColor: theme.dimmedColor,
+    },
+    wrapper: {
       flexDirection: 'row',
       alignItems: 'center',
-      paddingVertical: 40,
     },
     credit: {
       flexGrow: 1,
@@ -74,35 +78,59 @@ export let PageFooter = ({ style }: { style?: Object }) => {
     creditText: {
       color: theme.dimmedColor,
       fontSize: '10pt',
-      fontWeight: '700',
+      fontWeight: '600',
+    },
+    creditTextEm: {
+      color: theme.dimmedColor,
+      fontWeight: '900',
     },
   }));
   return (
-    <View style={[styles.root, style]}>
-      <View style={styles.credit}>
-        <Text style={styles.creditText}>by ARROW</Text>
+    <View style={styles.root}>
+      <View style={[styles.wrapper, layoutStyle]}>
+        <View style={styles.credit}>
+          <Text style={styles.creditText}>
+            by ANDREY<Text style={styles.creditTextEm}>POPP</Text>
+          </Text>
+        </View>
+        <UI.ThemeSwitch />
       </View>
-      <UI.ThemeSwitch />
     </View>
   );
 };
 
+export let Logo = () => {
+  let styles = UI.useStyles(theme => ({
+    titleText: {
+      color: theme.titleColor,
+      fontSize: '22pt',
+      fontWeight: '600',
+    },
+    titleTextBold: {
+      color: theme.titleColor,
+      fontSize: '22pt',
+      fontWeight: '900',
+    },
+  }));
+  return (
+    <>
+      <Text style={styles.titleText}>ANDREY</Text>
+      <Text style={styles.titleTextBold}>POPP</Text>
+    </>
+  );
+};
+
 export let PageHeader = ({
-  children,
+  title,
   showBackLink,
 }: {|
-  children: string | string[],
+  title?: string | string[],
   showBackLink?: boolean,
 |}) => {
   let styles = UI.useStyles(theme => ({
     root: {
       paddingTop: 50,
       paddingBottom: 50,
-    },
-    text: {
-      color: theme.textColor,
-      fontSize: '30pt',
-      fontWeight: '900',
     },
     backLink: {
       display: 'flex',
@@ -112,7 +140,28 @@ export let PageHeader = ({
       fontWeight: '600',
       textDecorationLine: 'none',
     },
+    titleRoot: {
+      paddingTop: 50,
+      paddingBottom: 10,
+      flexDirection: 'row',
+    },
+    titleText: {
+      color: theme.titleColor,
+      fontSize: '22pt',
+      fontWeight: '600',
+    },
+    titleTextBold: {
+      color: theme.titleColor,
+      fontSize: '22pt',
+      fontWeight: '900',
+    },
   }));
+  let titleElement = null;
+  if (title != null) {
+    titleElement = <Text style={styles.titleText}>{title}</Text>;
+  } else {
+    titleElement = <Logo />;
+  }
   return (
     <View style={styles.root}>
       {showBackLink ? (
@@ -120,7 +169,7 @@ export let PageHeader = ({
           <Icon.ArrowLeft size={18} /> back home
         </UI.Link>
       ) : null}
-      <Text style={styles.text}>{children}</Text>
+      <View style={styles.titleRoot}>{titleElement}</View>
     </View>
   );
 };

@@ -3,7 +3,9 @@
 import * as React from 'react';
 import { Text, ScrollView, View, TouchableOpacity } from 'react-native-web';
 import { Content, useStyles } from 'ui';
+import { handlePress } from 'ui/Link';
 import { Page } from './Page';
+import { Section } from './Section';
 
 let index = require('./writings-index.compute');
 
@@ -14,10 +16,15 @@ type P = {
 
 export let Post = (props: P) => {
   let { children, title } = props;
-  let post = null;
+  let curr = null;
+  let next = null;
   for (let item of index) {
     if (item.title === title) {
-      post = item;
+      curr = item;
+      continue;
+    }
+    if (curr != null) {
+      next = item;
       break;
     }
   }
@@ -28,14 +35,42 @@ export let Post = (props: P) => {
     },
   }));
   let subtitle =
-    post != null ? (
+    curr != null ? (
       <Text style={styles.subtitle}>
-        published on {post.date.year}/{post.date.month}/{post.date.day}
+        published on {curr.date.year}/{curr.date.month}/{curr.date.day}
       </Text>
     ) : null;
   return (
     <Page showBackLink title={title} subtitle={subtitle}>
       <Content>{children}</Content>
+      {next && <NextWriting writing={next} />}
     </Page>
+  );
+};
+
+let NextWriting = ({ writing }) => {
+  let styles = useStyles(theme => ({
+    root: {
+      width: '100%',
+      paddingTop: 50,
+    },
+    titleText: {
+      fontSize: '10pt',
+      fontWeight: '900',
+      textTransform: 'uppercase',
+      color: theme.linkColor,
+    },
+  }));
+  let onPress = (e: UIEvent) => handlePress(e, writing.href);
+  return (
+    <View style={styles.root}>
+      <Section title="Next">
+        <TouchableOpacity onPress={onPress}>
+          <Text accessibilityRole="link" style={styles.titleText}>
+            {writing.title}
+          </Text>
+        </TouchableOpacity>
+      </Section>
+    </View>
   );
 };

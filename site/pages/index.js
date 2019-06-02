@@ -6,6 +6,7 @@ import * as UI from 'ui';
 import * as Style from 'ui/Style';
 import { Content, Link } from 'ui/Content';
 import { Page } from '../Page';
+import { Section } from '../Section';
 import { handlePress } from 'ui/Link';
 
 let writingsIndex = require('../writings-index.compute');
@@ -91,34 +92,6 @@ let WritingsArchive = ({ writings }) => {
     );
   }
   return <View>{children}</View>;
-};
-
-let Section = props => {
-  let styles = Style.useStyles(theme => ({
-    root: {
-      padding: 10,
-      backgroundColor: theme.backgroundSecondaryColor,
-      width: '100%',
-      borderTopWidth: 2,
-      borderTopColor: theme.dimmedColor,
-      paddingVertical: 10,
-    },
-    title: {
-      color: theme.dimmedColor,
-      fontWeight: '900',
-      fontSize: '8pt',
-      textTransform: 'uppercase',
-    },
-    children: {
-      paddingTop: 10,
-    },
-  }));
-  return (
-    <View style={styles.root}>
-      <Text style={styles.title}>{props.title}</Text>
-      <View style={styles.children}>{props.children}</View>
-    </View>
-  );
 };
 
 export default (props: {}) => {

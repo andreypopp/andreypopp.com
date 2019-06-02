@@ -55,7 +55,7 @@ export let Page = ({
         subtitle={subtitle}
       />
     );
-  }, [showBackLink, title]);
+  }, [showBackLink, title, subtitle]);
 
   let footerElement = React.useMemo(() => {
     return <PageFooter layoutStyle={layoutStyle} />;

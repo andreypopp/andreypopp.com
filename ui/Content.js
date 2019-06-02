@@ -106,7 +106,7 @@ export let Content = (props: {|
           margin-top: 1em;
           margin-bottom: 1em;
           background-color: ${theme.backgroundSecondaryColor};
-          color: ${theme.linkColor};
+          color: ${theme.textColor};
           border-left: 3px solid ${theme.dimmedColor};
           padding-top: 15px;
           padding-bottom: 15px;

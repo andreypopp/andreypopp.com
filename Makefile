@@ -32,5 +32,5 @@ bootstrap:
 cosmos:
 	@yarn cosmos
 
-site-dev site-build site-start:
+site-dev site-build site-start site-export:
 	@yarn --cwd site next $(@:site-%=%)

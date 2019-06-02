@@ -28,7 +28,7 @@ let github = (
 let email = <Link href="mailto:8mayday@gmail.com">8mayday@gmail.com</Link>;
 
 let WritingLink = ({ writing }) => {
-  let _handlePress = (e: UIEvent) => handlePress(e, writing.href);
+  let onPress = (e: UIEvent) => handlePress(e, writing.href);
   let styles = Style.useStyles(theme => ({
     root: {
       paddingVertical: 8,
@@ -45,13 +45,13 @@ let WritingLink = ({ writing }) => {
     },
   }));
   return (
-    <TouchableOpacity style={styles.root}>
-      <Text
-        accessibilityRole="link"
-        style={styles.title}
-        href={writing.href}
-        onPress={_handlePress}
-      >
+    <TouchableOpacity
+      accessibilityRole="link"
+      href={writing.href}
+      style={styles.root}
+      onPress={onPress}
+    >
+      <Text style={styles.title} href={writing.href}>
         {writing.title}
       </Text>
       <Text style={styles.date}>

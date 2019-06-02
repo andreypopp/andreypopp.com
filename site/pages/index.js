@@ -65,8 +65,14 @@ let WritingsArchive = ({ writings }) => {
   let children = [];
   let lastYear = null;
   let styles = Style.useStyles(theme => ({
+    root: {
+      width: '100%',
+    },
     year: {
       paddingTop: 30,
+      paddingBottom: 5,
+      borderBottomWidth: 2,
+      borderBottomColor: theme.dimmedColor,
     },
     yearText: {
       color: theme.dimmedColor,
@@ -91,7 +97,7 @@ let WritingsArchive = ({ writings }) => {
       </View>,
     );
   }
-  return <View>{children}</View>;
+  return <View style={styles.root}>{children}</View>;
 };
 
 export default (props: {}) => {
@@ -100,17 +106,21 @@ export default (props: {}) => {
       paddingVertical: 50,
     },
   }));
+  let recently = writingsIndex
+    .filter(item => item.date.year >= 2019)
+    .slice(0, 3)
+    .map(item => (
+      <View key={item.href}>
+        <WritingLink writing={item} />
+      </View>
+    ));
   return (
     <Page>
-      <Section title="Recently">
-        <View>
-          {writingsIndex.slice(0, 3).map(item => (
-            <View key={item.href}>
-              <WritingLink writing={item} />
-            </View>
-          ))}
-        </View>
-      </Section>
+      {recently.lentgh > 0 ? (
+        <Section title="Recently">
+          <View>{recently}</View>
+        </Section>
+      ) : null}
       <View style={styles.me}>
         <Content>
           <p>I'm Andrey Popp, software engineer based in {geoloc}.</p>
@@ -125,9 +135,7 @@ export default (props: {}) => {
           </p>
         </Content>
       </View>
-      <Section title="Archive">
-        <WritingsArchive writings={writingsIndex} />
-      </Section>
+      <WritingsArchive writings={writingsIndex} />
     </Page>
   );
 };

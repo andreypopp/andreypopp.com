@@ -1,5 +1,8 @@
 let ctx = require.context('./pages/writings', false);
-let ids = ctx.keys().sort().reverse();
+let ids = ctx
+  .keys()
+  .sort()
+  .reverse();
 
 let extractDateRe = /^(\d\d\d\d)-(\d\d)-(\d\d)/;
 
@@ -11,6 +14,10 @@ module.exports = ids.map(id => {
   return {
     title: m.title,
     href: `/writings/${slug}`,
-    date: {year, month, day},
+    date: {
+      year: parseInt(year, 10),
+      month: parseInt(month, 10),
+      day: parseInt(day, 10),
+    },
   };
-})
+});

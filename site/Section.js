@@ -8,14 +8,14 @@ import * as Style from 'ui/Style';
 export let Section = (props: {| children: React.Node, title: string |}) => {
   let styles = Style.useStyles(theme => ({
     root: {
-      padding: 10,
-      backgroundColor: theme.backgroundSecondaryColor,
       width: '100%',
-      borderTopWidth: 2,
-      borderTopColor: theme.dimmedColor,
-      paddingVertical: 10,
     },
     title: {
+      paddingBottom: 5,
+      borderBottomWidth: 2,
+      borderBottomColor: theme.dimmedColor,
+    },
+    titleText: {
       color: theme.dimmedColor,
       fontWeight: '900',
       fontSize: '8pt',
@@ -27,7 +27,9 @@ export let Section = (props: {| children: React.Node, title: string |}) => {
   }));
   return (
     <View style={styles.root}>
-      <Text style={styles.title}>{props.title}</Text>
+      <View style={styles.title}>
+      <Text style={styles.titleText}>{props.title}</Text>
+    </View>
       <View style={styles.children}>{props.children}</View>
     </View>
   );

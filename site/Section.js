@@ -16,7 +16,7 @@ export let Section = (props: {| children: React.Node, title: string |}) => {
       borderBottomColor: theme.dimmedColor,
     },
     titleText: {
-      color: theme.dimmedColor,
+      color: theme.labelColor,
       fontWeight: '900',
       fontSize: '8pt',
       textTransform: 'uppercase',

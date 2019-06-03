@@ -58,8 +58,9 @@ function makeLightTheme(): Theme {
   let backgroundColor = polychrome('#f9f5f3');
   let backgroundSecondaryColor = polychrome('rgba(139, 75, 96, 0.10)');
   let titleColor = polychrome('#9c4663');
-  let textColor = polychrome('#8c4b61');
+  let textColor = polychrome('#69273e');
   let linkColor = polychrome('#9c4663');
+  let labelColor = polychrome('#9c4663');
   return {
     themeName: 'light',
 
@@ -71,9 +72,9 @@ function makeLightTheme(): Theme {
     borderColor: backgroundColor.darken(25).rgb(),
     titleColor: titleColor.rgb(),
     textColor: textColor.rgb(),
-    labelColor: textColor.rgb(),
+    labelColor: labelColor.rgb(),
     linkColor: linkColor.rgb(),
-    dimmedColor: textColor.fadeOut(30).rgb(),
+    dimmedColor: labelColor.fadeOut(40).rgb(),
 
     success: {
       backgroundColor: '#008641',

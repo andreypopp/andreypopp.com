@@ -17,13 +17,13 @@ type P = {
 
 export let Wiki = (props: P) => {
   let { children, title, shouldRestoreScrollPosition } = props;
-  let pages = [];
   let curr = null;
-  for (let item of index) {
+  for (let name of index.pages) {
+    let item = index.pagesByName[name];
     if (item.title === title) {
       curr = item;
+      break;
     }
-    pages.push(<PageLink page={item} key={item.name} />);
   }
   let styles = useStyles(theme => ({
     index: {
@@ -39,10 +39,21 @@ export let Wiki = (props: P) => {
     >
       <Content>{children}</Content>
       <View style={styles.index}>
-        <Section title="pages">{pages}</Section>
+        <Section title="pages">
+          <WikiPages index={index} />
+        </Section>
       </View>
     </Page>
   );
+};
+
+let WikiPages = ({ index }) => {
+  let pages = [];
+  for (let name of index.pages) {
+    let item = index.pagesByName[name];
+    pages.push(<PageLink page={item} key={item.name} />);
+  }
+  return pages;
 };
 
 let PageLink = ({ page }) => {

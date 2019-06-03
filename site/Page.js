@@ -123,12 +123,12 @@ export let PageFooter = ({ layoutStyle }: {| layoutStyle?: Object |}) => {
       flexGrow: 1,
     },
     creditText: {
-      color: theme.dimmedColor,
+      color: theme.labelColor,
       fontSize: '10pt',
       fontWeight: '600',
     },
     creditTextEm: {
-      color: theme.dimmedColor,
+      color: theme.labelColor,
       fontWeight: '900',
     },
   }));
@@ -185,8 +185,8 @@ export let PageHeader = ({
       display: 'flex',
       justifyContent: 'flex-start',
       alignItems: 'center',
-      fontSize: '12pt',
-      fontWeight: '600',
+      fontSize: '10pt',
+      fontWeight: '700',
       textDecorationLine: 'none',
     },
     titleRoot: {
@@ -215,7 +215,7 @@ export let PageHeader = ({
     <View style={styles.root}>
       {showBackLink ? (
         <UI.Link href="/" style={styles.backLink}>
-          <Icon.ArrowLeft size={18} /> back home
+          <Icon.ArrowLeft size={16} /> BACK HOME
         </UI.Link>
       ) : null}
       <View style={styles.titleRoot}>{titleElement}</View>

@@ -71,21 +71,27 @@ export let Content = (props: {|
         }
 
         .content h1 {
+          color: ${theme.labelColor};
           font-size: 20pt;
         }
         .content h2 {
+          color: ${theme.labelColor};
           font-size: 18pt;
         }
         .content h3 {
+          color: ${theme.labelColor};
           font-size: 18pt;
         }
         .content h4 {
+          color: ${theme.labelColor};
           font-size: 16pt;
         }
         .content h5 {
+          color: ${theme.labelColor};
           font-size: 14pt;
         }
         .content h6 {
+          color: ${theme.labelColor};
           font-size: 12pt;
         }
 

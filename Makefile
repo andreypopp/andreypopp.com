@@ -41,7 +41,9 @@ site-build site-start:
 	@yarn --cwd site next $(@:site-%=%)
 
 site-export: site-build
+	@rm -rf site/out
 	@yarn --cwd site next $(@:site-%=%)
+	@echo andreypopp.com > site/out/CNAME
 	@touch site/out/.nojekyll
 
 site-publish: site-export

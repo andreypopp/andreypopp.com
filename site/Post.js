@@ -31,7 +31,7 @@ export let Post = (props: P) => {
   }
   let styles = useStyles(theme => ({
     subtitle: {
-      color: theme.dimmedColor,
+      color: theme.labelColor,
       fontWeight: '600',
     },
   }));

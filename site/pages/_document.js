@@ -40,9 +40,8 @@ export default class MyDocument extends Document {
 
   render() {
     return (
-      <html style={{ height: '100%' }}>
+      <html lang="en" style={{ height: '100%' }}>
         <Head>
-          <title>@andreypopp</title>
           <meta name="apple-mobile-web-app-capable" content="yes" />
           <meta
             name="apple-mobile-web-app-status-bar-style"

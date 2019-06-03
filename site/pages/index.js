@@ -34,7 +34,7 @@ let WritingLink = ({ writing }) => {
       paddingVertical: 8,
     },
     date: {
-      color: theme.dimmedColor,
+      color: theme.labelColor,
       fontSize: '8pt',
       fontWeight: '800',
     },
@@ -75,7 +75,7 @@ let WritingsArchive = ({ writings }) => {
       borderBottomColor: theme.dimmedColor,
     },
     yearText: {
-      color: theme.dimmedColor,
+      color: theme.labelColor,
       fontWeight: '900',
       fontSize: '8pt',
     },

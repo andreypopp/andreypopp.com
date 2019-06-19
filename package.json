@@ -3,7 +3,9 @@
   "private": true,
   "workspaces": [
     "ui",
+    "site",
     "andreypopp.com",
+    "arrow",
     "value-loader"
   ],
   "devDependencies": {

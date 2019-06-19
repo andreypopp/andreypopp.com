@@ -50,7 +50,7 @@ class MyApp extends App {
     const { Component, pageProps } = this.props;
     if (!this.state.loaded) {
       return (
-        <UI.WithTheme themeConfig={{lightTheme: Style.darkTheme}}>
+        <UI.WithTheme themeConfig={{ lightTheme: Style.darkTheme }}>
           <Container>
             <Preloader />
           </Container>

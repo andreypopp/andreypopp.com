@@ -1,7 +1,6 @@
 {
-  "name": "site",
+  "name": "andreypopp.com",
   "version": "1.0.0",
-  "main": "index.js",
   "dependencies": {
     "@mdx-js/loader": "^1.0.20",
     "faker": "^4.1.0",

@@ -189,19 +189,23 @@ export function useDarkMode() {
 
 export type ThemeState = [Theme, (Theme) => void];
 
-export let useThemeState = (defaultTheme?: Theme) => {
+export type ThemeConfig = {
+  lightTheme: Theme,
+  darkTheme?: Theme,
+};
+
+export let useThemeState = (config: ThemeConfig) => {
+  let lightTheme = config.lightTheme;
+  let darkTheme = config.darkTheme || config.lightTheme;
+
   let isDarkMode = useDarkMode();
   let systemTheme = isDarkMode ? darkTheme : lightTheme;
+
   let [currentTheme, setTheme] = React.useState<?Theme>(null);
   let value = React.useMemo(() => {
-    let theme: Theme =
-      currentTheme != null
-        ? currentTheme
-        : defaultTheme != null
-        ? defaultTheme
-        : systemTheme;
+    let theme: Theme = currentTheme != null ? currentTheme : systemTheme;
     return [theme, (setTheme: Theme => void)];
-  }, [defaultTheme, systemTheme, currentTheme]);
+  }, [lightTheme, darkTheme, systemTheme, currentTheme]);
   return value;
 };
 
@@ -221,12 +225,12 @@ export let ThemeContext = React.createContext<ThemeState>([
 
 export let WithTheme = ({
   children,
-  defaultTheme,
-}: {
+  themeConfig = {lightTheme, darkTheme}
+}: {|
   children: React.Node,
-  defaultTheme?: Theme,
-}) => {
-  let value = useThemeState(defaultTheme);
+  themeConfig?: ThemeConfig,
+|}) => {
+  let value = useThemeState(themeConfig);
   return (
     <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
   );

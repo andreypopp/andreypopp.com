@@ -9,11 +9,11 @@ import { Section } from './Section';
 
 let index = require('./writings-index.compute');
 
-type P = {
+type P = {|
   children: React.Node,
   title?: string | string[],
   shouldRestoreScrollPosition?: boolean,
-};
+|};
 
 export let Post = (props: P) => {
   let { children, title, shouldRestoreScrollPosition } = props;

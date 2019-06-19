@@ -24,13 +24,11 @@ export function setRef<T: React.ElementType>(
   value: null | T,
 ) {
   if (typeof ref === 'function') {
-    // $FlowFixMe: ...
     ref(value);
   } else if (typeof ref === 'object') {
-    // $FlowFixMe: ...
     ref.current = value;
   } else {
-    invariant('setRef: string refs are not supported');
+    invariant(false, 'setRef: string refs are not supported');
   }
 }
 

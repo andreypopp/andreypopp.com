@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import * as Icon from 'react-feather';
-import {Show as Demo} from './Fixture';
+import { Show as Demo } from './Fixture';
 import * as Lang from './Lang';
 import * as Style from './Style';
 import { View, Text } from 'react-native';
@@ -12,11 +12,11 @@ let SwitchDemo = ({
   label,
   render,
   desc,
-}: {
+}: {|
   label: string,
   desc?: string,
   render: P => React.Node,
-}) => {
+|}) => {
   let styles = Style.useStyles(theme => ({
     root: {
       padding: 10,
@@ -46,11 +46,11 @@ let SwitchDemo = ({
       <View style={styles.label}>
         <Text style={styles.labelText}>{label}</Text>
       </View>
-      {desc && (
+      {desc != null ? (
         <View style={styles.desc}>
           <Text style={styles.descText}>{desc}</Text>
         </View>
-      )}
+      ) : null}
       <View style={styles.demos}>
         <Demo label="false">
           {render({
@@ -85,7 +85,7 @@ let SwitchDemo = ({
   );
 };
 
-let Render = (props: *) => {
+let Render = (props: {||}) => {
   return (
     <View>
       <SwitchDemo

@@ -6,7 +6,7 @@ import Router from 'next/router';
 import * as Style from './Style';
 import * as Lang from './Lang';
 
-type IconProps = { size: number | string, style: Object };
+type IconProps = {| size: number | string, style: Object |};
 
 type P = {|
   onPress?: UIEvent => void,
@@ -31,8 +31,8 @@ export let IconButton = ({
 }: P) => {
   let theme = Style.useTheme();
 
-  iconColor = iconColor || theme.labelColor;
-  borderColor = borderColor || 'transparent';
+  iconColor = iconColor != null ? iconColor : theme.labelColor;
+  borderColor = borderColor != null ? borderColor : 'transparent';
 
   let borderRadius = 2;
 

@@ -42,7 +42,7 @@ class MyApp extends App {
   }
 
   shouldRestoreScrollPosition: boolean = false;
-  state: { loaded: boolean } = {
+  state: {| loaded: boolean |} = {
     loaded: false,
   };
 

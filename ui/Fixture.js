@@ -5,7 +5,7 @@ import { View, Text } from 'react-native-web';
 import { ThemeSwitch } from './ThemeSwitch';
 import * as Style from './Style';
 
-let DemoInner = ({ children }: { children: React.Node }) => {
+let DemoInner = ({ children }: {| children: React.Node |}) => {
   let styles = Style.useStyles(theme => ({
     root: {
       backgroundColor: theme.backgroundColor,
@@ -61,7 +61,7 @@ export let Show = ({
   );
 };
 
-export let Demo = ({ children }: { children: React.Node }) => {
+export let Demo = ({ children }: {| children: React.Node |}) => {
   return (
     <Style.WithTheme>
       <DemoInner>{children}</DemoInner>

@@ -7,8 +7,16 @@
 [lints]
 all=warn
 implicit-inexact-object=warn
+unclear-type=off
+sketchy-null-bool=off
+untyped-import=off
 
 [options]
 module.name_mapper='^react-native$' -> 'react-native-web'
 
 [strict]
+nonstrict-import
+unclear-type
+unsafe-getters-setters
+untyped-import
+untyped-type-import

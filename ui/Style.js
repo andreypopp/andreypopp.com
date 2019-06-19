@@ -31,14 +31,14 @@ export type Theme = {|
   backgroundSelectedColor: color,
   backgroundHighlightedColor: color,
 
-  success: {
+  success: {|
     backgroundColor: color,
     textColor: color,
-  },
-  danger: {
+  |},
+  danger: {|
     backgroundColor: color,
     textColor: color,
-  },
+  |},
 |};
 
 export let iOSPalette = {
@@ -189,10 +189,10 @@ export function useDarkMode() {
 
 export type ThemeState = [Theme, (Theme) => void];
 
-export type ThemeConfig = {
+export type ThemeConfig = {|
   lightTheme: Theme,
   darkTheme?: Theme,
-};
+|};
 
 export let useThemeState = (config: ThemeConfig) => {
   let lightTheme = config.lightTheme;
@@ -236,7 +236,7 @@ export let WithTheme = ({
   );
 };
 
-export let useStyles = <T: { [name: string]: Object }>(
+export let useStyles = <T: { [name: string]: Object, ... }>(
   spec: Theme => T,
   dependencies?: $ReadOnlyArray<mixed>,
 ): $ObjMap<T, <V>(V) => Object> => {

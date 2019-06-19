@@ -6,7 +6,7 @@ import { Link } from './Link';
 import * as Lang from './Lang';
 import * as Style from './Style';
 
-let Render = (props: *) => {
+let Render = (props: {||}) => {
   let style = Style.useStyle(theme => ({ color: theme.textColor }));
   return (
     <Text style={style}>

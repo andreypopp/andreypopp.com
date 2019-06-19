@@ -41,7 +41,7 @@ export let Link = ({
   );
 };
 
-type IconProps = { size: number | string, style: Object };
+type IconProps = {| size: number | string, style: Object |};
 
 type LinkButtonProps = {|
   href: string,

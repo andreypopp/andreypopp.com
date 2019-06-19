@@ -25,7 +25,7 @@ export let Page = ({
   let isWideScreen = size != null && size.width > 700;
 
   React.useEffect(() => {
-    if (title) {
+    if (title != null) {
       document.title = Array.isArray(title) ? title.join() : title;
     } else {
       document.title = `@andreypopp`;

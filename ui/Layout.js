@@ -21,7 +21,7 @@ import ResizeObserver from 'resize-observer-polyfill';
  *   }
  */
 export function useDOMSize(): [
-  ?{ height: number, width: number },
+  ?{| height: number, width: number |},
   (null | HTMLElement) => void,
 ] {
   let [size, setSize] = React.useState(null);

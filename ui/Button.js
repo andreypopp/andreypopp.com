@@ -6,7 +6,7 @@ import Router from 'next/router';
 import * as Style from './Style';
 import * as Lang from './Lang';
 
-type IconProps = { size: number | string, style: Object };
+type IconProps = {| size: number | string, style: Object |};
 
 type P = {|
   label: string,
@@ -33,8 +33,8 @@ export let Button = ({
 }: P) => {
   let theme = Style.useTheme();
 
-  labelColor = labelColor || theme.labelColor;
-  borderColor = borderColor || 'transparent';
+  labelColor = labelColor != null ? labelColor : theme.labelColor;
+  borderColor = borderColor != null ? borderColor : 'transparent';
 
   let borderRadius = 2;
 

@@ -13,18 +13,23 @@ import { View, StyleSheet, createElement } from 'react-native';
 import { Sun, Moon } from 'react-feather';
 import * as Style from './Style';
 
+type IconProps = {|
+  size?: number,
+  style?: Object,
+|}
+
 export type P = {|
   value: boolean,
   onValueChange: boolean => void,
   accessibilityLabel?: string,
   disabled?: boolean,
   size?: number,
-  ThumbIconOff?: React.AbstractComponent<{ size: number }>,
-  ThumbIconOn?: React.AbstractComponent<{ size: number }>,
-  TrackIconOff?: React.AbstractComponent<{ size: number }>,
-  TrackIconOn?: React.AbstractComponent<{ size: number }>,
-  trackColor?: { on: Style.color, off: Style.color },
-  thumbColor?: { on: Style.color, off: Style.color },
+  ThumbIconOff?: React.AbstractComponent<IconProps>,
+  ThumbIconOn?: React.AbstractComponent<IconProps>,
+  TrackIconOff?: React.AbstractComponent<IconProps>,
+  TrackIconOn?: React.AbstractComponent<IconProps>,
+  trackColor?: {| on: Style.color, off: Style.color |},
+  thumbColor?: {| on: Style.color, off: Style.color |},
 |};
 
 export function Switch(props: P) {

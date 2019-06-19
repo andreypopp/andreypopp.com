@@ -1,4 +1,4 @@
-// @flow
+// @flow strict
 
 export function emptyFunction(...args: mixed[]) {
   return;
@@ -29,7 +29,8 @@ let alphabet =
  */
 export function randomId(size?: number = 21) {
   let id = '';
-  while (0 < size--) {
+  let n = size;
+  while (0 < n--) {
     id += alphabet[(Math.random() * 53) | 0];
   }
   return id;

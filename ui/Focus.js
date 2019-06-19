@@ -7,12 +7,12 @@ import * as ReactUtil from './ReactUtil';
 import * as Lang from './Lang';
 import jsSpatialNav from './spatial-navigation';
 
-type Directions = {
+type Directions = {|
   up?: boolean,
   down?: boolean,
   left?: boolean,
   right?: boolean,
-};
+|};
 
 let allDirections: Directions = {
   up: true,
@@ -21,19 +21,19 @@ let allDirections: Directions = {
   right: true,
 };
 
-export type SpatialNavigation = {
+export type SpatialNavigation = {|
   focus(): void,
   moveUp(): void,
   moveDown(): void,
   moveLeft(): void,
   moveRight(): void,
-};
+|};
 
 /**
  * Wrapper on top of js-spatial-navigation library.
  */
 export function useSpatialNavigation(
-  rootRef: { current: ?HTMLElement },
+  rootRef: {| current: ?HTMLElement |},
   options: {|
     directions?: Directions,
   |} = { directions: allDirections },

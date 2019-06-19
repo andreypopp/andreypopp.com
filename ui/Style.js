@@ -67,7 +67,7 @@ function makeLightTheme(): Theme {
     backgroundColor: backgroundColor.rgb(),
     backgroundSecondaryColor: backgroundSecondaryColor.rgb(),
     backgroundSelectedColor: '#93ddff',
-    backgroundHighlightedColor: '#C7C7CC',
+    backgroundHighlightedColor: '#ffd12f',
 
     borderColor: backgroundColor.darken(25).rgb(),
     titleColor: titleColor.rgb(),

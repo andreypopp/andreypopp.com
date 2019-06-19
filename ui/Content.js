@@ -15,9 +15,8 @@ export let Link = ({
 |}) => {
   let _handlePress = (e: UIEvent) => handlePress(e, href);
   let style = Style.useStyle(theme => ({
-    // TODO: move to theme
-    color: theme.themeName === 'light' ? theme.textColor : '#000000',
-    backgroundColor: theme.themeName === 'light' ? '#ffd12f' : theme.linkColor,
+    color: theme.linkColor,
+    backgroundColor: theme.backgroundHighlightedColor,
     paddingHorizontal: 2,
     fontWeight: '500',
   }));

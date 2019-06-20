@@ -7,8 +7,11 @@ import { Sun, Moon } from 'react-feather';
 import { Switch } from './Switch';
 
 export let ThemeSwitch = () => {
-  let [theme, setTheme] = React.useContext(Style.ThemeContext);
-  let isDark = theme === Style.darkTheme;
+  let {
+    themeConfig: {lightTheme, darkTheme},
+    themeState: [theme, setTheme],
+  } = React.useContext(Style.ThemeContext);
+  let isDark = theme === darkTheme;
   let onThemeChange = React.useCallback(isActive => {
     if (isActive) {
       setDarkTheme();
@@ -17,10 +20,10 @@ export let ThemeSwitch = () => {
     }
   });
   let setLightTheme = React.useCallback(() => {
-    setTheme(Style.lightTheme);
+    setTheme(lightTheme);
   });
   let setDarkTheme = React.useCallback(() => {
-    setTheme(Style.darkTheme);
+    setTheme(darkTheme);
   });
   let styles = Style.useStyles(theme => ({
     root: {

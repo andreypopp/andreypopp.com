@@ -131,6 +131,11 @@ export let Content = (props: {|
           padding: 0;
           background-color: transparent;
         }
+        .content em {
+        }
+        .content bold {
+          font-weight: 900;
+        }
       `}</style>
     ),
     [theme],

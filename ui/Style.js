@@ -190,11 +190,21 @@ export function useDarkMode() {
 export type ThemeState = [Theme, (Theme) => void];
 
 export type ThemeConfig = {|
-  lightTheme: Theme,
-  darkTheme?: Theme,
+  +lightTheme: Theme,
+  +darkTheme?: Theme,
 |};
 
-export let useThemeState = (config: ThemeConfig) => {
+type ThemeConfigFinal = {|
+  +lightTheme: Theme,
+  +darkTheme: Theme,
+|};
+
+type ThemeContextType = {|
+  themeConfig: ThemeConfigFinal,
+  themeState: ThemeState,
+|};
+
+export function useThemeState(config: ThemeConfig): ThemeState {
   let lightTheme = config.lightTheme;
   let darkTheme = config.darkTheme || config.lightTheme;
 
@@ -207,32 +217,56 @@ export let useThemeState = (config: ThemeConfig) => {
     return [theme, (setTheme: Theme => void)];
   }, [lightTheme, darkTheme, systemTheme, currentTheme]);
   return value;
-};
+}
 
-export let useTheme = (defaultTheme?: Theme) => {
-  let [theme, _setTheme] = React.useContext(ThemeContext);
+export let ThemeContext = React.createContext<ThemeContextType>({
+  themeConfig: { lightTheme, darkTheme },
+  themeState: [
+    typeof window !== 'undefined'
+      ? window.matchMedia(prefersColorSchemeDark).matches
+        ? darkTheme
+        : lightTheme
+      : lightTheme,
+    () => {},
+  ],
+});
+
+export function useThemeConfig(): ThemeConfigFinal {
+  let { themeConfig } = React.useContext(ThemeContext);
+  return themeConfig;
+}
+
+export function useTheme(): Theme {
+  let {
+    themeState: [theme, _setTheme],
+  } = React.useContext(ThemeContext);
   return theme;
-};
+}
 
-export let ThemeContext = React.createContext<ThemeState>([
-  typeof window !== 'undefined'
-    ? window.matchMedia(prefersColorSchemeDark).matches
-      ? darkTheme
-      : lightTheme
-    : lightTheme,
-  () => {},
-]);
+let defaultThemeConfig = { lightTheme, darkTheme };
 
 export let WithTheme = ({
   children,
-  themeConfig = {lightTheme, darkTheme}
+  themeConfig: { darkTheme, lightTheme } = defaultThemeConfig,
 }: {|
   children: React.Node,
   themeConfig?: ThemeConfig,
 |}) => {
-  let value = useThemeState(themeConfig);
+  let themeConfig: ThemeConfigFinal = {
+    darkTheme: darkTheme != null ? darkTheme : defaultThemeConfig.darkTheme,
+    lightTheme,
+  };
+  let themeState = useThemeState(themeConfig);
+  let themeContext: ThemeContextType = React.useMemo(() => {
+    return {
+      themeState,
+      themeConfig,
+    };
+  }, [themeState, themeConfig]);
   return (
-    <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
+    <ThemeContext.Provider value={themeContext}>
+      {children}
+    </ThemeContext.Provider>
   );
 };
 
@@ -240,7 +274,9 @@ export let useStyles = <T: { [name: string]: Object, ... }>(
   spec: Theme => T,
   dependencies?: $ReadOnlyArray<mixed>,
 ): $ObjMap<T, <V>(V) => Object> => {
-  let [theme, _setTheme] = React.useContext(ThemeContext);
+  let {
+    themeState: [theme, _setTheme],
+  } = React.useContext(ThemeContext);
   if (dependencies == null) {
     dependencies = [theme.themeName];
   } else {
@@ -257,7 +293,9 @@ export let useStyle = (
   spec: Theme => Object,
   dependencies?: $ReadOnlyArray<mixed>,
 ): Object => {
-  let [theme, _setTheme] = React.useContext(ThemeContext);
+  let {
+    themeState: [theme, _setTheme],
+  } = React.useContext(ThemeContext);
   if (dependencies == null) {
     dependencies = [theme.themeName];
   } else {

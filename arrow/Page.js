@@ -29,7 +29,7 @@ export let Page = ({
     if (title != null) {
       document.title = Array.isArray(title) ? title.join() : title;
     } else {
-      document.title = `@andreypopp`;
+      document.title = `Arrow Research`;
     }
   }, [title]);
 
@@ -133,6 +133,7 @@ export let PageFooter = ({ layoutStyle }: {| layoutStyle?: Object |}) => {
       fontWeight: '900',
     },
   }));
+  let themeConfig = Style.useThemeConfig();
   return (
     <View style={styles.root}>
       <View style={[styles.wrapper, layoutStyle]}>
@@ -141,13 +142,16 @@ export let PageFooter = ({ layoutStyle }: {| layoutStyle?: Object |}) => {
             by <Text style={styles.creditTextEm}>ARROW</Text>RESEARCH
           </Text>
         </View>
-        <UI.ThemeSwitch />
+        {themeConfig.lightTheme === themeConfig.darkTheme ? null : (
+          <UI.ThemeSwitch />
+        )}
       </View>
     </View>
   );
 };
 
 export let Title = () => {
+  let theme = UI.useTheme();
   let styles = UI.useStyles(theme => {
     let fontSize = '16pt';
     return {
@@ -169,14 +173,14 @@ export let Title = () => {
       },
     };
   });
-        // <View style={styles.textView}>
-        //   <Text style={styles.titleTextBold}>ARROW</Text>
-        //   <Text style={styles.titleText}>RESEARCH</Text>
-        // </View>
+  // <View style={styles.textView}>
+  //   <Text style={styles.titleTextBold}>ARROW</Text>
+  //   <Text style={styles.titleText}>RESEARCH</Text>
+  // </View>
   return (
     <>
       <View style={styles.rootView}>
-        <Logo />
+        <Logo width={180} />
       </View>
     </>
   );

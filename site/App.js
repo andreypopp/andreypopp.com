@@ -56,7 +56,7 @@ export default class App extends AppBase {
     }
 
     return (
-      <UI.WithTheme>
+      <UI.WithTheme themeConfig={this.themeConfig}>
         <Container>
           <Component
             {...pageProps}

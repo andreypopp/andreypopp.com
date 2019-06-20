@@ -17,7 +17,20 @@ export default (props: {| shouldRestoreScrollPosition?: boolean |}) => {
     <Page shouldRestoreScrollPosition={props.shouldRestoreScrollPosition}>
       <View style={styles.me}>
         <Content>
-          <p>heello</p>
+          <p>
+            <bold>ARROW</bold>RESEARCH is a group of software engineers who do
+            love working on challenging problems. We specialize in building
+            products for <bold>data management</bold> and{' '}
+            <bold>development tools</bold>. We know how to incrementally improve{' '}
+            <bold>legacy systems</bold> without disruptions.
+          </p>
+          <p>
+            We prioritize working on robust and maintainable software and
+            therefore our technology of choice is <bold>ReasonML/OCaml</bold>.
+            We also have expertise working with <bold>JavaScript</bold>,{' '}
+            <bold>Python</bold>, <bold>Erlang</bold>, <bold>C</bold> programming
+            languages.
+          </p>
         </Content>
       </View>
     </Page>

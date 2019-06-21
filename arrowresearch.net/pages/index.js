@@ -19,15 +19,15 @@ export default (props: {| shouldRestoreScrollPosition?: boolean |}) => {
         <Content>
           <p>
             <em>ARROW</em>RESEARCH is a group of software engineers who do love
-            working on challenging problems. We specialize in building products
+            working on challenging projects. We specialize in building products
             for <em>data management</em> and <em>development tools</em>. We know
             how to incrementally improve <em>legacy systems</em> without
             disruptions.
           </p>
           <p>
-            We prioritize working on robust and maintainable software and
+            We are focusing on building robust and maintainable software and
             therefore our technology of choice is <em>ReasonML/OCaml</em>. We
-            also have expertise working with <em>JavaScript</em>,{' '}
+            also have expertise in working with <em>JavaScript</em>,{' '}
             <em>Python</em>, <em>Erlang</em>, <em>C</em> programming languages.
           </p>
           <p>

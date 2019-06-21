@@ -18,7 +18,7 @@ export let Link = ({
     color: theme.linkColor,
     backgroundColor: theme.backgroundHighlightedColor,
     paddingHorizontal: 2,
-    fontWeight: '500',
+    fontWeight: '600',
   }));
   return (
     <Text
@@ -132,9 +132,8 @@ export let Content = (props: {|
           background-color: transparent;
         }
         .content em {
-        }
-        .content bold {
           font-weight: 900;
+          font-style: normal;
         }
       `}</style>
     ),

@@ -18,18 +18,26 @@ export default (props: {| shouldRestoreScrollPosition?: boolean |}) => {
       <View style={styles.me}>
         <Content>
           <p>
-            <bold>ARROW</bold>RESEARCH is a group of software engineers who do
-            love working on challenging problems. We specialize in building
-            products for <bold>data management</bold> and{' '}
-            <bold>development tools</bold>. We know how to incrementally improve{' '}
-            <bold>legacy systems</bold> without disruptions.
+            <em>ARROW</em>RESEARCH is a group of software engineers who do love
+            working on challenging problems. We specialize in building products
+            for <em>data management</em> and <em>development tools</em>. We know
+            how to incrementally improve <em>legacy systems</em> without
+            disruptions.
           </p>
           <p>
             We prioritize working on robust and maintainable software and
-            therefore our technology of choice is <bold>ReasonML/OCaml</bold>.
-            We also have expertise working with <bold>JavaScript</bold>,{' '}
-            <bold>Python</bold>, <bold>Erlang</bold>, <bold>C</bold> programming
-            languages.
+            therefore our technology of choice is <em>ReasonML/OCaml</em>. We
+            also have expertise working with <em>JavaScript</em>,{' '}
+            <em>Python</em>, <em>Erlang</em>, <em>C</em> programming languages.
+          </p>
+          <p>
+            Contact us at{' '}
+            <em>
+              <Link href="mailto:hello@arrowresearch.net">
+                hello@arrowresearch.net
+              </Link>
+            </em>
+            .
           </p>
         </Content>
       </View>

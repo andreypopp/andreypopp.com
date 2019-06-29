@@ -40,8 +40,8 @@ export let Content = (props: {|
   children: React.Node,
   fontSize?: number | string,
 |}) => {
-  let { children, fontSize = '12pt' } = props;
   let theme = Style.useTheme();
+  let { children, fontSize = Style.fontSize.normal } = props;
 
   let styles = React.useMemo(
     () => (
@@ -137,7 +137,7 @@ export let Content = (props: {|
         }
       `}</style>
     ),
-    [theme],
+    [theme, fontSize],
   );
   return (
     <MDXProvider components={contentComponents}>

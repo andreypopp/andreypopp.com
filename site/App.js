@@ -16,11 +16,6 @@ function Preloader({ Logo }: {| Logo: React.AbstractComponent<{||}> |}) {
       justifyContent: 'center',
       flexDirection: 'row',
     },
-    text: {
-      color: theme.textColor,
-      fontSize: '18pt',
-      fontWeight: '900',
-    },
   }));
   return (
     <View style={styles.root}>

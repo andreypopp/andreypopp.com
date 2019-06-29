@@ -35,7 +35,7 @@ let WritingLink = ({ writing }) => {
     },
     date: {
       color: theme.labelColor,
-      fontSize: '8pt',
+      fontSize: Style.fontSize.tiny,
       fontWeight: '800',
     },
     title: {
@@ -77,7 +77,7 @@ let WritingsArchive = ({ writings }) => {
     yearText: {
       color: theme.labelColor,
       fontWeight: '900',
-      fontSize: '8pt',
+      fontSize: Style.fontSize.tiny,
     },
   }));
 

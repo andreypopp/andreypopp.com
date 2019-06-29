@@ -2,7 +2,8 @@
 
 import * as React from 'react';
 import { Text, ScrollView, View, TouchableOpacity } from 'react-native-web';
-import { Content, useStyles } from 'ui';
+import { Content } from 'ui';
+import * as Style from 'ui/Style';
 import { handlePress } from 'ui/Link';
 import { Page } from './Page';
 import { Section } from './Section';
@@ -29,10 +30,11 @@ export let Post = (props: P) => {
       break;
     }
   }
-  let styles = useStyles(theme => ({
+  let styles = Style.useStyles(theme => ({
     subtitle: {
       color: theme.labelColor,
       fontWeight: '600',
+      fontSize: Style.fontSize.small,
     },
   }));
   let subtitle =
@@ -55,13 +57,13 @@ export let Post = (props: P) => {
 };
 
 let NextWriting = ({ writing }) => {
-  let styles = useStyles(theme => ({
+  let styles = Style.useStyles(theme => ({
     root: {
       width: '100%',
       paddingTop: 50,
     },
     titleText: {
-      fontSize: '10pt',
+      fontSize: Style.fontSize.small,
       fontWeight: '900',
       textTransform: 'uppercase',
       color: theme.linkColor,

@@ -55,7 +55,7 @@ export let Button = ({
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: backgroundColor,
-        height: '1.5em',
+        height: '1.6em',
       },
       rootDisabled: {
         opacity: 0.6,
@@ -63,7 +63,7 @@ export let Button = ({
       },
       label: {
         color: labelColor,
-        fontSize: '9pt',
+        fontSize: Style.fontSize.small,
         fontWeight: '700',
         textAlign: 'center',
         textTransform: 'uppercase',

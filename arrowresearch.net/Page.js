@@ -125,7 +125,7 @@ export let PageFooter = ({ layoutStyle }: {| layoutStyle?: Object |}) => {
     },
     creditText: {
       color: theme.labelColor,
-      fontSize: '10pt',
+      fontSize: Style.fontSize.small,
       fontWeight: '600',
     },
     creditTextEm: {
@@ -153,7 +153,6 @@ export let PageFooter = ({ layoutStyle }: {| layoutStyle?: Object |}) => {
 export let Title = () => {
   let theme = UI.useTheme();
   let styles = UI.useStyles(theme => {
-    let fontSize = '16pt';
     return {
       rootView: {
         alignItems: 'center',
@@ -161,22 +160,8 @@ export let Title = () => {
       textView: {
         flexDirection: 'row',
       },
-      titleText: {
-        color: theme.titleColor,
-        fontSize: fontSize,
-        fontWeight: '600',
-      },
-      titleTextBold: {
-        color: theme.titleColor,
-        fontSize: fontSize,
-        fontWeight: '900',
-      },
     };
   });
-  // <View style={styles.textView}>
-  //   <Text style={styles.titleTextBold}>ARROW</Text>
-  //   <Text style={styles.titleText}>RESEARCH</Text>
-  // </View>
   return (
     <>
       <View style={styles.rootView}>
@@ -204,7 +189,7 @@ export let PageHeader = ({
       display: 'flex',
       justifyContent: 'flex-start',
       alignItems: 'center',
-      fontSize: '10pt',
+      fontSize: Style.fontSize.small,
       fontWeight: '700',
       textDecorationLine: 'none',
     },
@@ -215,13 +200,8 @@ export let PageHeader = ({
     },
     titleText: {
       color: theme.titleColor,
-      fontSize: '22pt',
+      fontSize: Style.fontSize.big2,
       fontWeight: '600',
-    },
-    titleTextBold: {
-      color: theme.titleColor,
-      fontSize: '22pt',
-      fontWeight: '900',
     },
   }));
   let titleElement = null;

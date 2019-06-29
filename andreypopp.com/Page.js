@@ -124,7 +124,7 @@ export let PageFooter = ({ layoutStyle }: {| layoutStyle?: Object |}) => {
     },
     creditText: {
       color: theme.labelColor,
-      fontSize: '10pt',
+      fontSize: Style.fontSize.small,
       fontWeight: '600',
     },
     creditTextEm: {
@@ -150,12 +150,12 @@ export let Logo = () => {
   let styles = UI.useStyles(theme => ({
     titleText: {
       color: theme.titleColor,
-      fontSize: '22pt',
+      fontSize: Style.fontSize.big2,
       fontWeight: '600',
     },
     titleTextBold: {
       color: theme.titleColor,
-      fontSize: '22pt',
+      fontSize: Style.fontSize.big2,
       fontWeight: '900',
     },
   }));
@@ -185,7 +185,7 @@ export let PageHeader = ({
       display: 'flex',
       justifyContent: 'flex-start',
       alignItems: 'center',
-      fontSize: '10pt',
+      fontSize: Style.fontSize.small,
       fontWeight: '700',
       textDecorationLine: 'none',
     },
@@ -196,13 +196,8 @@ export let PageHeader = ({
     },
     titleText: {
       color: theme.titleColor,
-      fontSize: '22pt',
-      fontWeight: '600',
-    },
-    titleTextBold: {
-      color: theme.titleColor,
-      fontSize: '22pt',
-      fontWeight: '900',
+      fontSize: Style.fontSize.big4,
+      fontWeight: '800',
     },
   }));
   let titleElement = null;

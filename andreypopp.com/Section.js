@@ -18,7 +18,7 @@ export let Section = (props: {| children: React.Node, title: string |}) => {
     titleText: {
       color: theme.labelColor,
       fontWeight: '900',
-      fontSize: '8pt',
+      fontSize: Style.fontSize.tiny,
       textTransform: 'uppercase',
     },
     children: {

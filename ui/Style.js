@@ -314,3 +314,16 @@ export let styles = StyleSheet.create({
     outlineColor: '-webkit-focus-ring-color',
   },
 });
+
+export let fontSize = {
+  big6: '6rem',
+  big5: '5rem',
+  big4: '3rem',
+  big3: '2.25rem',
+  big2: '1.5rem',
+  big1: '1.25rem',
+  big: '1.25rem',
+  normal: '1rem',
+  small: '.875rem',
+  tiny: '.7rem',
+};

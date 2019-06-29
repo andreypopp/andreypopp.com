@@ -28,7 +28,7 @@ let SwitchDemo = ({
       paddingBottom: 10,
     },
     labelText: {
-      fontSize: '12pt',
+      fontSize: Style.fontSize.normal,
       fontWeight: '600',
       color: theme.dimmedColor,
     },
@@ -36,7 +36,7 @@ let SwitchDemo = ({
       paddingBottom: 10,
     },
     descText: {
-      fontSize: '9pt',
+      fontSize: Style.fontSize.small,
       fontWeight: '400',
       color: theme.dimmedColor,
     },

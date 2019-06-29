@@ -46,7 +46,7 @@ export let Show = ({
       paddingBottom: 10,
     },
     labelText: {
-      fontSize: '10pt',
+      fontSize: Style.fontSize.small,
       fontWeight: '600',
       color: theme.dimmedColor,
     },

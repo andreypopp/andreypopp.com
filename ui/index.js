@@ -15,3 +15,4 @@ export { Button } from './Button';
 export { IconButton } from './IconButton';
 export { ThemeSwitch } from './ThemeSwitch';
 export { Content } from './Content';
+export { Stepper } from './Stepper';

@@ -1,0 +1,269 @@
+open Printf
+open ContainersLabels
+open React_server
+
+module Route = struct
+  open Ppx_compare_lib.Builtin
+  open Ppx_deriving_router_runtime.Primitives
+
+  type t =
+    | Home [@GET "/"]
+    | Writing of { id : string } [@GET "/w/:id"]
+    | Writing_feed [@GET "/atom.xml"]
+  [@@deriving router, equal]
+end
+
+module UI = struct
+  let stylesheet =
+    {|
+    .navigation {
+      font-size: 80%;
+      font-weight: bold;
+      display: flex;
+      justify-content: end;
+      gap: 1em;
+      padding-top: 1em;
+      padding-bottom: 1em;
+    }
+    .title h1 {
+      margin-top: 0;
+      padding-top: 0;
+    }
+    .title h2 {
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+    .writing-list .writing-item {
+    }
+    .writing-list .writing-title {
+      padding: 0;
+      margin: 0;
+    }
+    .writing-list .writing-summary {
+      padding-top: 0.5em;
+    }
+  |}
+
+  let%component page ?title ~children () =
+    let meta_title =
+      match title with
+      | None -> "andreypopp.com"
+      | Some title -> sprintf "%s / andreypopp.com" title
+    in
+    let title =
+      match title with
+      | None -> <h1>"andreypopp.com"</h1>
+      | Some title ->
+          <div className="title">
+            <h2><a href=(Route.href Home)>"andreypopp.com"</a></h2>
+            <h1>(React.string title)</h1>
+          </div>
+    in
+    <html>
+      <head>
+        <title>(React.string meta_title)</title>
+        <link rel="stylesheet" href="https://unpkg.com/bamboo.css" />
+        <style dangerouslySetInnerHTML={ __html = stylesheet } />
+      </head>
+      <body>
+        <main>
+          <nav className="navigation">
+            <a href=(Route.href Writing_feed)>"atom feed"</a>
+          </nav>
+          <section>title</section>
+          children
+        </main>
+      </body>
+    </html>
+end
+
+module Writing = struct
+  type meta = {
+    updated : string; [@default ""]
+    published : bool; [@default false]
+  }
+  [@@deriving yaml]
+
+  let collection =
+    let make_meta path yaml =
+      match meta_of_yaml yaml with
+      | Ok v ->
+          let updated =
+            match String.split_on_char ~by:'-' path with
+            | y :: m :: d :: _ ->
+                Printf.sprintf "%s-%s-%sT00:00:00Z" y m d
+            | _ -> "1970-01-01T00:00:00Z"
+          in
+          Ok { v with updated }
+      | Error e -> Error e
+    in
+    Markdown_content.of_dir "blog" ~path:"blog" ~make_meta
+      ~init_meta:{ published = false; updated = "1970-01-01T00:00:00Z" }
+
+  let atom_feed ~base ~author ~title ~subtitle () : Atom.feed =
+    let blog = collection () in
+    let entries, updated =
+      List.fold_left blog.items ~init:([], "1970-01-01T00:00:00Z")
+        ~f:(fun (entries, max_updated) (item : _ Content.item) ->
+          let value = Lazy.force item.value in
+          let title =
+            match value.Markdown_content.title with
+            | None -> item.id
+            | Some title -> title
+          in
+          let summary =
+            match value.Markdown_content.summary with
+            | None -> ""
+            | Some summary -> summary
+          in
+          let updated = value.meta.updated in
+          let href = base ^ Route.(href (Writing { id = item.id })) in
+          let id = href in
+          let entry = Atom.entry ~id ~title ~updated ~summary ~href in
+          entry :: entries, max_updated)
+    in
+    Atom.feed ~title ~author ~href:base ~subtitle ~updated entries
+      ~id:(base ^ "/atom.xml")
+end
+
+let base = "https://andreypopp.com"
+let author = "Andrey Popp"
+let title = "andreypopp.com"
+let subtitle = "Andrey Popp's personal website"
+
+let sitemap () =
+  let open Route in
+  [ Home; Writing_feed ]
+  @ List.map (Writing.collection ()).items ~f:(fun item ->
+        Writing { id = item.Content.id })
+
+let handle ~only_published () =
+  let blog = Writing.collection () in
+  Route.handle @@ function
+  | Home ->
+      let blog =
+        List.filter_map blog.items ~f:(fun (page : _ Content.item) ->
+            let href = Route.(href (Writing { id = page.id })) in
+            let value = Lazy.force page.value in
+            let title =
+              match value.Markdown_content.title with
+              | None -> href
+              | Some title -> title
+            in
+            if (not value.meta.Writing.published) && only_published then
+              None
+            else
+              Some
+                <div className="writing-item">
+                  <h3 className="writing-title">
+                    <a href>(React.string title)</a>
+                  </h3>
+                  (match value.Markdown_content.summary with
+                  | None -> React.null
+                  | Some summary ->
+                      <p className="writing-summary">
+                        (React.string summary)
+                      </p>)
+                </div>)
+      in
+      React_dream.render
+        <UI.page>
+          <section>
+            <div className="writing-list">(React.list blog)</div>
+          </section>
+        </UI.page>
+  | Writing { id } -> (
+      match Content.find id blog with
+      | None -> fun _req -> Dream.respond ~status:`Not_Found "NOT FOUND"
+      | Some page ->
+          let value = Lazy.force page.value in
+          if (not value.meta.published) && only_published then fun _req ->
+            Dream.respond ~status:`Not_Found "NOT FOUND"
+          else
+            React_dream.render
+              (let value = Lazy.force page.value in
+               let html =
+                 Cmarkit_html.of_doc ~safe:true value.Markdown_content.doc
+               in
+               <UI.page ?title=value.title>
+                 <section>
+                   <div dangerouslySetInnerHTML={ __html = html } />
+                 </section>
+               </UI.page>))
+  | Writing_feed ->
+      let feed = Writing.atom_feed ~base ~author ~title ~subtitle () in
+      let xml = Atom.render feed in
+      fun _req ->
+        Dream.respond
+          ~headers:[ "Content-Type", "application/atom+xml" ]
+          xml
+
+let serve only_published () =
+  let handle = handle ~only_published () in
+  Dream.run ~adjust_terminal:false @@ Dream.logger @@ handle
+
+let mkdirp path = assert (Sys.command (sprintf "mkdir -p %s" path) = 0)
+
+let generate () =
+  Lwt_main.run
+  @@
+  let open Lwt.Infix in
+  let routes = sitemap () in
+  let handle = handle ~only_published:true () in
+  Lwt_list.iter_p
+    (fun route ->
+      let method_ = Route.http_method route in
+      match method_ with
+      | `GET -> (
+          let target = Route.href route in
+          let has_ext = String.contains target '.' in
+          print_endline (Printf.sprintf "building %s" target);
+          let req = Dream.request ~method_ ~target "" in
+          handle req >>= fun resp ->
+          match Dream.status resp with
+          | `Not_Found -> Lwt.return ()
+          | `OK ->
+              Dream.body resp >>= fun body ->
+              let path = Filename.concat "public" target in
+              let path =
+                if has_ext then path
+                else Filename.concat path "index.html"
+              in
+              mkdirp (Filename.dirname path);
+              Out_channel.with_open_bin path (fun oc ->
+                  Out_channel.output_string oc body);
+              Lwt.return ()
+          | _ ->
+              Dream.body resp >>= fun body ->
+              prerr_endline
+                (Printf.sprintf "ERROR building %s\n%s" target body);
+              Lwt.return ())
+      | _ -> Lwt.return ())
+    routes
+
+open Cmdliner
+
+let only_published_t =
+  Arg.(
+    value
+    & flag
+    & info [ "only-published" ] ~doc:"show only published content")
+
+let serve_cmd =
+  let doc = "serve the website" in
+  let info = Cmd.info "serve" ~doc in
+  let cmd = Term.(const serve $ only_published_t $ const ()) in
+  Cmd.v info cmd
+
+let generate_cmd =
+  let doc = "generate the website" in
+  let info = Cmd.info "generate" ~doc in
+  let cmd = Term.(const generate $ const ()) in
+  Cmd.v info cmd
+
+let main_cmd =
+  let doc = "sitegen" in
+  let info = Cmd.info "sitegen" ~doc in
+  Cmd.group info [ serve_cmd; generate_cmd ]
+
+let () = exit (Cmd.eval main_cmd)

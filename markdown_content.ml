@@ -1,5 +1,3 @@
-open ContainersLabels
-
 type 'meta t = {
   id : string;
   title : string option;
@@ -61,7 +59,8 @@ let extract_title_summary doc =
         let text = Block.Heading.inline h in
         h1 := Some (inline_to_text text);
         Mapper.delete
-    | Block.Paragraph (p, _meta) ->
+    | Block.Paragraph (p, _meta) 
+      when Option.is_none !summary ->
         let text = Block.Paragraph.inline p in
         summary := Some (inline_to_text text);
         Mapper.default

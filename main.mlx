@@ -1,5 +1,4 @@
 open Printf
-open ContainersLabels
 open React_server
 
 module Route = struct
@@ -42,6 +41,10 @@ module UI = struct
     .writing-list .writing-summary {
       padding-top: 0.5em;
     }
+    .writing-list .writing-read-more {
+      font-size: 80%;
+    }
+
   |}
 
   let%component page ?title ~children () =
@@ -162,16 +165,24 @@ let handle ~only_published () =
                   | None -> React.null
                   | Some summary ->
                       <p className="writing-summary">
-                        (React.string summary)
+                        (React.string summary) <a href
+                        className="writing-read-more">(React.string " read more ↗")</a>
                       </p>)
                 </div>)
       in
       React_dream.render
+      (match blog with
+      | [] -> <UI.page>
+          <section>
+            <p>"move along..."</p>
+          </section>
+        </UI.page>
+      | blog ->
         <UI.page>
           <section>
             <div className="writing-list">(React.list blog)</div>
           </section>
-        </UI.page>
+        </UI.page>)
   | Writing { id } -> (
       match Content.find id blog with
       | None -> fun _req -> Dream.respond ~status:`Not_Found "NOT FOUND"
@@ -188,6 +199,9 @@ let handle ~only_published () =
                <UI.page ?title=value.title>
                  <section>
                    <div dangerouslySetInnerHTML={ __html = html } />
+                 </section>
+                 <section>
+                   <a href=(Route.href Home)>"↖ back"</a>
                  </section>
                </UI.page>))
   | Writing_feed ->

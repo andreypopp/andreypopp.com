@@ -1,5 +1,3 @@
-open ContainersLabels
-
 type entry = {
   id : string;
   title : string;

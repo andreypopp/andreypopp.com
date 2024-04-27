@@ -3,3 +3,4 @@ yarn-error.log
 _opam
 _build
 ppx_deriving_yaml/
+public/

@@ -1,5 +1,3 @@
-open ContainersLabels
-
 type 'v item = { id : string; value : 'v Lazy.t }
 type 'a coll = { name : string; items : 'a item list }
 

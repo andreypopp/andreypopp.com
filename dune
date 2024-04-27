@@ -1,5 +1,7 @@
 (executable
  (name main)
+ (flags
+  (:standard -open ContainersLabels))
  (libraries
   react_server
   react_dream

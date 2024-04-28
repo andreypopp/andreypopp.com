@@ -174,7 +174,7 @@ let handle ~only_published () =
       (match blog with
       | [] -> <UI.page>
           <section>
-            <p>"move along..."</p>
+            <p>"nothing to see here, move along..."</p>
           </section>
         </UI.page>
       | blog ->

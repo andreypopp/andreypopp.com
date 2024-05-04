@@ -15,6 +15,10 @@ end
 module UI = struct
   let stylesheet =
     {|
+    .main {
+      padding-top: 2em;
+      padding-bottom: 10em;
+    }
     .navigation {
       font-size: 80%;
       font-weight: bold;
@@ -46,6 +50,7 @@ module UI = struct
     }
     .writing-list .writing-read-more {
       font-size: 80%;
+      padding-left: 0.5em;
     }
     .writing-draft-box {
       font-size: 0.8rem;
@@ -90,9 +95,9 @@ module UI = struct
         <style dangerouslySetInnerHTML={ __html = stylesheet } />
       </head>
       <body>
-        <main>
+        <main className="main">
           <nav className="navigation">
-            <a href=(Route.href Writing_feed)>"atom feed"</a>
+            <a href=(Route.href Writing_feed)>"SUBSCRIBE"</a>
           </nav>
           <section>title</section>
           children
@@ -193,7 +198,7 @@ let handle ~only_published () =
                   | Some summary ->
                       <p className="writing-summary">
                         (React.string summary) <a href
-                        className="writing-read-more">(React.string " read more ↗")</a>
+                        className="writing-read-more">(React.string "read more ↗")</a>
                       </p>)
                 </div>)
       in
@@ -252,7 +257,7 @@ let handle ~only_published () =
 
 let serve only_published () =
   let handle = handle ~only_published () in
-  Dream.run ~interface:"0.0.0.0" ~adjust_terminal:false @@ Dream.logger @@ handle
+  Dream.run ~adjust_terminal:false @@ Dream.logger @@ handle
 
 let mkdirp path = assert (Sys.command (sprintf "mkdir -p %s" path) = 0)
 

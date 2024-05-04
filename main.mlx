@@ -81,8 +81,10 @@ module UI = struct
             <h1>(React.string title)</h1>
           </div>
     in
-    <html>
+    <html lang="en">
       <head>
+      	<meta charSet="UTF-8" />
+      	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>(React.string meta_title)</title>
         <link rel="stylesheet" href="https://unpkg.com/bamboo.css" />
         <style dangerouslySetInnerHTML={ __html = stylesheet } />
@@ -250,7 +252,7 @@ let handle ~only_published () =
 
 let serve only_published () =
   let handle = handle ~only_published () in
-  Dream.run ~adjust_terminal:false @@ Dream.logger @@ handle
+  Dream.run ~interface:"0.0.0.0" ~adjust_terminal:false @@ Dream.logger @@ handle
 
 let mkdirp path = assert (Sys.command (sprintf "mkdir -p %s" path) = 0)
 

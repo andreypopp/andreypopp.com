@@ -37,12 +37,31 @@ module UI = struct
     .writing-list .writing-title {
       padding: 0;
       margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
     }
     .writing-list .writing-summary {
       padding-top: 0.5em;
     }
     .writing-list .writing-read-more {
       font-size: 80%;
+    }
+    .writing-draft-box {
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+      color: #888;
+      font-weight: bold;
+    }
+    .writing-draft {
+      display: inline;
+      font-size: 0.7rem;
+      font-weight: bold;
+      background-color: #666;
+      color: white;
+      padding: 0.3em;
     }
 
   |}
@@ -109,6 +128,8 @@ module Writing = struct
       List.fold_left blog.items ~init:([], "1970-01-01T00:00:00Z")
         ~f:(fun (entries, max_updated) (item : _ Content.item) ->
           let value = Lazy.force item.value in
+          if not value.Markdown_content.meta.published then entries, max_updated
+          else
           let title =
             match value.Markdown_content.title with
             | None -> item.id
@@ -153,12 +174,16 @@ let handle ~only_published () =
               | None -> href
               | Some title -> title
             in
-            if (not value.meta.Writing.published) && only_published then
+            let published = value.meta.Writing.published in
+            if (not published) && only_published then
               None
             else
               Some
                 <div className="writing-item">
                   <h3 className="writing-title">
+                    (if not published
+                     then <span className="writing-draft">" DRAFT"</span>
+                     else React.null)
                     <a href>(React.string title)</a>
                   </h3>
                   (match value.Markdown_content.summary with
@@ -188,15 +213,26 @@ let handle ~only_published () =
       | None -> fun _req -> Dream.respond ~status:`Not_Found "NOT FOUND"
       | Some page ->
           let value = Lazy.force page.value in
-          if (not value.meta.published) && only_published then fun _req ->
+          let published = value.meta.published in
+          if (not published) && only_published then fun _req ->
             Dream.respond ~status:`Not_Found "NOT FOUND"
           else
             React_dream.render
               (let value = Lazy.force page.value in
                let html =
-                 Cmarkit_html.of_doc ~safe:true value.Markdown_content.doc
+                 Cmarkit_html.of_doc ~backend_blocks:true ~safe:true value.Markdown_content.doc
                in
                <UI.page ?title=value.title>
+                 (if not published
+                  then <section>
+                      <p className="writing-draft-box">
+                        <span  className="writing-draft">
+                        "DRAFT"
+                        </span>
+                        "this post is a draft and is not published yet"
+                        </p>
+                    </section>
+                  else React.null)
                  <section>
                    <div dangerouslySetInnerHTML={ __html = html } />
                  </section>

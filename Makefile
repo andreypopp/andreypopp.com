@@ -4,6 +4,7 @@ build:
 	dune build ./main.exe
 gen:
 	rm -rf ./public && dune exec ./main.exe -- generate
+	echo 'andreypopp.com' > ./public/CNAME
 pub:
 	(cd public \
 	&& git init .  \

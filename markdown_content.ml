@@ -31,7 +31,6 @@ let read_meta ic =
 let read_content ic =
   let rec loop state =
     let line = In_channel.input_line ic in
-    let line = Option.map String.trim line in
     match line, state with
     | None, _ -> state
     | Some "---", `start -> loop `meta
@@ -97,7 +96,7 @@ let of_dir ~make_meta ~init_meta ~path name () =
                       In_channel.with_open_bin path read_content
                     in
                     let data = Option.value ~default:"" data in
-                    let doc = Cmarkit.Doc.of_string data in
+                    let doc = Cmarkit.Doc.of_string ~layout:true ~strict:false data in
                     let title, summary, doc = extract_title_summary doc in
                     { id; title; doc; summary; meta })
                in

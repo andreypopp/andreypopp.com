@@ -1,5 +1,6 @@
 open Printf
 open React_server
+open Content_lib
 
 module Route = struct
   open Ppx_compare_lib.Builtin

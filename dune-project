@@ -1,4 +1,4 @@
-(lang dune 3.11)
+(lang dune 3.16)
 (name andreypopp_com)
 (generate_opam_files false)
 (source (github andreypopp/reactor))

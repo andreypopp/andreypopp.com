@@ -1,21 +1,14 @@
-(executable
- (name main)
+(library
+ (name content_lib)
  (flags
   (:standard -open ContainersLabels))
  (libraries
-  react_server
-  react_dream
-  dream
-  cmdliner
-  content_lib
   containers
   cmarkit
   yaml
   xml-light)
  (preprocess
   (pps
-   react_server.ppx
-   -native
-   ppx_deriving_router
    ppx_deriving_yaml
    ppx_compare)))
+

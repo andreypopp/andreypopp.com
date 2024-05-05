@@ -89,8 +89,8 @@ module UI = struct
     in
     <html lang="en">
       <head>
-      	<meta charSet="UTF-8" />
-      	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charSet="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>(React.string meta_title)</title>
         <link rel="stylesheet" href="https://unpkg.com/bamboo.css" />
         <style dangerouslySetInnerHTML={ __html = stylesheet } />
@@ -120,8 +120,7 @@ module Writing = struct
       | Ok v ->
           let updated =
             match String.split_on_char ~by:'-' path with
-            | y :: m :: d :: _ ->
-                Printf.sprintf "%s-%s-%sT00:00:00Z" y m d
+            | y :: m :: d :: _ -> Printf.sprintf "%s-%s-%sT00:00:00Z" y m d
             | _ -> "1970-01-01T00:00:00Z"
           in
           Ok { v with updated }
@@ -136,23 +135,24 @@ module Writing = struct
       List.fold_left blog.items ~init:([], "1970-01-01T00:00:00Z")
         ~f:(fun (entries, max_updated) (item : _ Content.item) ->
           let value = Lazy.force item.value in
-          if not value.Markdown_content.meta.published then entries, max_updated
+          if not value.Markdown_content.meta.published then
+            (entries, max_updated)
           else
-          let title =
-            match value.Markdown_content.title with
-            | None -> item.id
-            | Some title -> title
-          in
-          let summary =
-            match value.Markdown_content.summary with
-            | None -> ""
-            | Some summary -> summary
-          in
-          let updated = value.meta.updated in
-          let href = base ^ Route.(href (Writing { id = item.id })) in
-          let id = href in
-          let entry = Atom.entry ~id ~title ~updated ~summary ~href in
-          entry :: entries, max_updated)
+            let title =
+              match value.Markdown_content.title with
+              | None -> item.id
+              | Some title -> title
+            in
+            let summary =
+              match value.Markdown_content.summary with
+              | None -> ""
+              | Some summary -> summary
+            in
+            let updated = value.meta.updated in
+            let href = base ^ Route.(href (Writing { id = item.id })) in
+            let id = href in
+            let entry = Atom.entry ~id ~title ~updated ~summary ~href in
+            (entry :: entries, max_updated))
     in
     Atom.feed ~title ~author ~href:base ~subtitle ~updated entries
       ~id:(base ^ "/atom.xml")
@@ -183,14 +183,13 @@ let handle ~only_published () =
               | Some title -> title
             in
             let published = value.meta.Writing.published in
-            if (not published) && only_published then
-              None
+            if (not published) && only_published then None
             else
               Some
                 <div className="writing-item">
                   <h3 className="writing-title">
-                    (if not published
-                     then <span className="writing-draft">" DRAFT"</span>
+                    (if not published then
+                       <span className="writing-draft">" DRAFT"</span>
                      else React.null)
                     <a href>(React.string title)</a>
                   </h3>
@@ -198,24 +197,25 @@ let handle ~only_published () =
                   | None -> React.null
                   | Some summary ->
                       <p className="writing-summary">
-                        (React.string summary) <a href
-                        className="writing-read-more">(React.string "read more ↗")</a>
+                        (React.string summary)
+                        <a href className="writing-read-more">
+                          (React.string "read more ↗")
+                        </a>
                       </p>)
                 </div>)
       in
       React_dream.render
-      (match blog with
-      | [] -> <UI.page>
-          <section>
-            <p>"nothing to see here, move along..."</p>
-          </section>
-        </UI.page>
-      | blog ->
-        <UI.page>
-          <section>
-            <div className="writing-list">(React.list blog)</div>
-          </section>
-        </UI.page>)
+        (match blog with
+        | [] ->
+            <UI.page>
+              <section><p>"nothing to see here, move along..."</p></section>
+            </UI.page>
+        | blog ->
+            <UI.page>
+              <section>
+                <div className="writing-list">(React.list blog)</div>
+              </section>
+            </UI.page>)
   | Writing { id } -> (
       match Content.find id blog with
       | None -> fun _req -> Dream.respond ~status:`Not_Found "NOT FOUND"
@@ -228,33 +228,28 @@ let handle ~only_published () =
             React_dream.render
               (let value = Lazy.force page.value in
                let html =
-                 Cmarkit_html.of_doc ~backend_blocks:true ~safe:true value.Markdown_content.doc
+                 Cmarkit_html.of_doc ~backend_blocks:true ~safe:true
+                   value.Markdown_content.doc
                in
                <UI.page ?title=value.title>
-                 (if not published
-                  then <section>
+                 (if not published then
+                    <section>
                       <p className="writing-draft-box">
-                        <span  className="writing-draft">
-                        "DRAFT"
-                        </span>
+                        <span className="writing-draft">"DRAFT"</span>
                         "this post is a draft and is not published yet"
-                        </p>
+                      </p>
                     </section>
                   else React.null)
                  <section>
                    <div dangerouslySetInnerHTML={ __html = html } />
                  </section>
-                 <section>
-                   <a href=(Route.href Home)>"↖ back"</a>
-                 </section>
+                 <section><a href=(Route.href Home)>"↖ back"</a></section>
                </UI.page>))
   | Writing_feed ->
       let feed = Writing.atom_feed ~base ~author ~title ~subtitle () in
       let xml = Atom.render feed in
       fun _req ->
-        Dream.respond
-          ~headers:[ "Content-Type", "application/atom+xml" ]
-          xml
+        Dream.respond ~headers:[ ("Content-Type", "application/atom+xml") ] xml
 
 let serve only_published () =
   let handle = handle ~only_published () in
@@ -284,8 +279,7 @@ let generate () =
               Dream.body resp >>= fun body ->
               let path = Filename.concat "public" target in
               let path =
-                if has_ext then path
-                else Filename.concat path "index.html"
+                if has_ext then path else Filename.concat path "index.html"
               in
               mkdirp (Filename.dirname path);
               Out_channel.with_open_bin path (fun oc ->
@@ -293,8 +287,7 @@ let generate () =
               Lwt.return ()
           | _ ->
               Dream.body resp >>= fun body ->
-              prerr_endline
-                (Printf.sprintf "ERROR building %s\n%s" target body);
+              prerr_endline (Printf.sprintf "ERROR building %s\n%s" target body);
               Lwt.return ())
       | _ -> Lwt.return ())
     routes
@@ -303,9 +296,7 @@ open Cmdliner
 
 let only_published_t =
   Arg.(
-    value
-    & flag
-    & info [ "only-published" ] ~doc:"show only published content")
+    value & flag & info [ "only-published" ] ~doc:"show only published content")
 
 let serve_cmd =
   let doc = "serve the website" in

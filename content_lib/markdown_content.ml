@@ -10,7 +10,7 @@ let read_meta ic =
   let rec loop state =
     let line = In_channel.input_line ic in
     let line = Option.map String.trim line in
-    match line, state with
+    match (line, state) with
     | None, _ -> state
     | Some "---", `start -> loop (`meta [])
     | Some "---", `meta meta -> `meta meta
@@ -31,7 +31,7 @@ let read_meta ic =
 let read_content ic =
   let rec loop state =
     let line = In_channel.input_line ic in
-    match line, state with
+    match (line, state) with
     | None, _ -> state
     | Some "---", `start -> loop `meta
     | Some "---", `meta -> loop (`content [])
@@ -58,8 +58,7 @@ let extract_title_summary doc =
         let text = Block.Heading.inline h in
         h1 := Some (inline_to_text text);
         Mapper.delete
-    | Block.Paragraph (p, _meta) 
-      when Option.is_none !summary ->
+    | Block.Paragraph (p, _meta) when Option.is_none !summary ->
         let text = Block.Paragraph.inline p in
         summary := Some (inline_to_text text);
         Mapper.default
@@ -67,7 +66,7 @@ let extract_title_summary doc =
   in
   let mapper = Mapper.make ~block () in
   let doc = Mapper.map_doc mapper doc in
-  !h1, !summary, doc
+  (!h1, !summary, doc)
 
 let of_dir ~make_meta ~init_meta ~path name () =
   let files = Sys.readdir path in
@@ -92,11 +91,11 @@ let of_dir ~make_meta ~init_meta ~path name () =
                let id = Filename.chop_suffix file ".md" in
                let value =
                  lazy
-                   (let data =
-                      In_channel.with_open_bin path read_content
-                    in
+                   (let data = In_channel.with_open_bin path read_content in
                     let data = Option.value ~default:"" data in
-                    let doc = Cmarkit.Doc.of_string ~layout:true ~strict:false data in
+                    let doc =
+                      Cmarkit.Doc.of_string ~layout:true ~strict:false data
+                    in
                     let title, summary, doc = extract_title_summary doc in
                     { id; title; doc; summary; meta })
                in

@@ -2,13 +2,6 @@
  (name content_lib)
  (flags
   (:standard -open ContainersLabels))
- (libraries
-  containers
-  cmarkit
-  yaml
-  xml-light)
+ (libraries containers cmarkit yaml xml-light)
  (preprocess
-  (pps
-   ppx_deriving_yaml
-   ppx_compare)))
-
+  (pps ppx_deriving_yaml ppx_compare)))
